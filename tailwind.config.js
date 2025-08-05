@@ -1,19 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./app/**/*.{js,ts,jsx,tsx}",
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx}",         // for App Router structure
+    "./pages/**/*.{js,ts,jsx,tsx}",       // if you ever use pages/
+    "./components/**/*.{js,ts,jsx,tsx}",  // reusable components
   ],
+
+  
   theme: {
-    extend: {
-      colors: {
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
-        brand: '#9FD52B',
-      },
-    },
+    extend: {},
   },
   plugins: [],
-};
+}
+
 
