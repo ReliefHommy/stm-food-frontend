@@ -1,29 +1,20 @@
 'use client';
+
 import Image from 'next/image';
-import Link from 'next/link';
-
-
-
+import { useState } from 'react';
 
 export default function ProductDetailPage() {
- 
+  const [quantity, setQuantity] = useState(1);
 
   return (
-    
     <div className="max-w-7xl mx-auto px-4 py-10">
-            {/* Breadcrumbs */}
-      <div className="text-sm text-gray-500 mb-4">
-        <Link href="" className="text-green-600 hover:underline">Home</Link> / 
-        <Link href="" className="text-green-600 hover:underline ml-1">Category</Link> / 
-        <span className="ml-1 text-gray-700 font-medium">ProductName</span>
-      </div>
       {/* 1. Image Gallery & Info */}
       <div className="grid md:grid-cols-2 gap-8">
         {/* Image Gallery */}
         <div className="space-y-4">
           <div className="relative w-full aspect-square rounded-lg overflow-hidden shadow">
             <Image
-              src="/products/red.jpg"
+              src="/products/grid-view.jpg"
               alt="Curry Paste"
               fill
               className="object-cover"
@@ -35,7 +26,7 @@ export default function ProductDetailPage() {
                 <Image
                   src={`/products/thumb-${i + 1}.jpg`}
                   alt={`thumb-${i + 1}`}
-                 width={480} height={340}
+                  fill
                   className="object-cover"
                 />
               </div>
@@ -59,7 +50,8 @@ export default function ProductDetailPage() {
               id="quantity"
               type="number"
               min={1}
-         
+              value={quantity}
+              onChange={(e) => setQuantity(Number(e.target.value))}
               className="w-16 border rounded px-2 py-1"
             />
           </div>
@@ -98,10 +90,9 @@ export default function ProductDetailPage() {
             >
               <div className="relative w-full h-32 rounded-md overflow-hidden mb-2">
                 <Image
-                  src="/products/thumb-3.jpg"
+                  src="/products/grid-view.jpg"
                   alt="Curry"
-                  width={300}
-          height={300}
+                  fill
                   className="object-cover"
                 />
               </div>
@@ -115,3 +106,4 @@ export default function ProductDetailPage() {
     </div>
   );
 }
+

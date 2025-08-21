@@ -1,8 +1,8 @@
-//app/dashboard/layout.tsx
 'use client';
-import { ReactNode } from 'react'
+
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import Link from 'next/link'
+
 const items = [
   { href: '/vendor/dashboard', label: 'Dashboard', icon: '🏠' },
   { href: '/vendor/products',  label: 'My Products', icon: '📦' },
@@ -11,12 +11,10 @@ const items = [
   { href: '/vendor/settings',  label: 'Settings', icon: '⚙️' },
 ];
 
-export default function DashboardLayout({ children }: { children: ReactNode }) {
+export default function Sidebar() {
   const pathname = usePathname();
   return (
-    <div className="flex min-h-screen">
-      {/* Sidebar */}
-    <aside className="w-64 shrink-0 border-r bg-black">
+    <aside className="w-64 shrink-0 border-r bg-black text-white">
       <div className="p-4 text-xl font-extrabold text-green-700">STM FOOD</div>
       <nav className="px-2 pb-4 space-y-1">
         {items.map((it) => {
@@ -26,7 +24,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
               key={it.href}
               href={it.href}
               className={`flex items-center gap-3 rounded px-3 py-2 text-sm
-                ${active ? 'bg-green-50 text-white font-semibold' : 'hover:bg-green-50 text-white'}`}
+                ${active ? 'bg-green-50 text-green-700 font-semibold' : 'hover:bg-gray-50 text-white'}`}
             >
               <span>{it.icon}</span>
               <span>{it.label}</span>
@@ -35,11 +33,5 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         })}
       </nav>
     </aside>
-
-      {/* Main Content */}
-      <main className="flex-1 p-6 bg-white p-8">
-        {children}
-      </main>
-    </div>
-  )
+  );
 }

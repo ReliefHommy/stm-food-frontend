@@ -1,11 +1,42 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react'
+import ShopNavbar from '../components/shop/ShopNavbar';
 
 export default function ShopPage() {
+
+ const [products, setProducts] = useState([])
+
+
+
+
+  
+useEffect(() => {
+  fetch('http://127.0.0.1:8000/api/products')
+    .then(res => res.json())
+    .then(data => {
+      console.log('Raw API data:', data);
+
+      // Handle both cases: with or without pagination
+      const productsArray = Array.isArray(data)
+        ? data
+        : Array.isArray(data.results)
+        ? data.results
+        : [];
+
+      setProducts(productsArray);
+    })
+    .catch(err => console.error('Fetch failed:', err));
+}, []);
+
+
+
+
   return (
-    <div className="max-w-7xl mx-auto px-6 py-10">
-      
+    
+    <div className="max-w-7xl mx-auto px-6 py-10 bg-white">
+      <ShopNavbar/><br></br>
       {/* ✅ Breadcrumbs */}
 
       {/* Breadcrumbs */}
@@ -19,7 +50,7 @@ export default function ShopPage() {
       {/* Banner */}
       <div className="mb-8 rounded-lg overflow-hidden shadow">
         <Image
-          src="/banners/shop-banner.jpg"
+          src="/banners/thaiband.png"
           alt="Shop Banner"
           width={1200}
           height={300}
@@ -34,12 +65,12 @@ export default function ShopPage() {
             <div className="flex flex-col lg:flex-row gap-8">
       
               {/* ✅ 2. Filters Sidebar */}
-              <aside className="w-full lg:w-1/4 border border-gray-200 p-4 rounded-lg">
-                <h3 className="font-semibold mb-2">Filter</h3>
+              <aside className="w-full lg:w-1/4 p-4 rounded-lg">
+                <h3 className="font-semibold mb-2 text-black">Filter</h3>
       
                 {/* Category */}
                 <div className="mb-4">
-                  <h4 className="text-sm font-medium mb-1">Kategori</h4>
+                  <h4 className="text-sm font-medium mb-1 text-black">Kategori</h4>
                   <ul className="space-y-1 text-sm">
                     <li><input type="checkbox" /> Curry Pastes</li>
                     <li><input type="checkbox" /> Rice & Noodles</li>
@@ -49,13 +80,13 @@ export default function ShopPage() {
       
                 {/* Price Range */}
                 <div className="mb-4">
-                  <h4 className="text-sm font-medium mb-1">Pris</h4>
+                  <h4 className="text-sm font-medium mb-1 text-black">Pris</h4>
                   <input type="range" min={0} max={100} />
                 </div>
       
                 {/* Brand */}
                 <div className="mb-4">
-                  <h4 className="text-sm font-medium mb-1">Varumärke</h4>
+                  <h4 className="text-sm font-medium mb-1 text-black">Varumärke</h4>
                   <ul className="space-y-1 text-sm">
                     <li><input type="checkbox" /> Mae Ploy</li>
                     <li><input type="checkbox" /> Aroy-D</li>
@@ -83,28 +114,29 @@ export default function ShopPage() {
                   </select>
                 </div>
       
-                {/* 3. Grid of Products */}
+              
 {/* 3. Grid of Products */}
 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-  {[...Array(6)].map((_, i) => (
-    <div key={i} className="border p-4 rounded shadow hover:shadow-md transition">
+  {products.map((product: any)=> (
+    <div key={product.id} className="border p-4 rounded shadow hover:shadow-md transition">
       <div className="h-40 flex items-center justify-center rounded-md overflow-hidden shadow mb-2">
         <Image
-          src="/products/red.jpg"
-          alt="Green Curry Paste"
+          src={product.image}
+          alt={product.title}
        width={300} height={300}
           className="object-cover hover:scale-105 transition-transform duration-300"
         />
       </div>
-      <h4 className="text-lg font-semibold text-center">Green Curry Paste</h4>
-      <p className="text-sm text-gray-500 text-center">Mae Ploy · 400g</p>
-      <p className="text-green-700 font-bold mt-1 text-center">45 kr</p>
+      <h4 className="text-lg font-semibold text-center text-gray-700">{product.title}</h4>
+      <p className="text-sm text-gray-400 text-center">{product.title} · 400g</p>
+      <p className="text-green-700 font-bold mt-1 text-center">{product.price} kr</p>
       <button className="mt-3 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition text-sm">
         Lägg i varukorg
       </button>
     </div>
   ))}
-</div>
+</div><br /><br />
+
 
 
       

@@ -1,7 +1,5 @@
 // /app/dashboard/products/page.tsx
 
-// /app/dashboard/products/page.tsx
-
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import {
@@ -43,23 +41,18 @@ export default async function ProductsPage() {
   const products = await res.json()
 
   return (
-    <div className="p-6">
+    <div className="p-4 space-y-6">
     
       
 <div className="flex justify-between items-center mb-4">
   <h1 className="text-2xl font-bold text-gray-600">My Products</h1>
- 
   <Link href="/dashboard/products/new">
-    <Button className="text-2xl font-bold text-gray-600" >Logout</Button>
+    <Button className="text-2xl font-bold text-gray-600" >Add Product</Button>
   </Link>
-  
   
 </div>
 
-
       <div className="overflow-x-auto">
-         <button className="bg-green-600 text-white px-4 py-2 rounded">+ Add Product</button>
-
         <Table>
           <TableHeader>
             <TableRow>
@@ -76,11 +69,9 @@ export default async function ProductsPage() {
    src={product.image}
     alt={product.image}
     className="w-16 h-16 object-cover rounded"
-
   /></TableCell>
                 <TableCell className='text-gray-400 font-medium'>{product.title || '-'}</TableCell>
-                <TableCell className='text-gray-400 font-medium'>{product.description ? product.description.slice(0, 60) + (product.description.length > 60 ? '...' : '')
-    :  '-'}</TableCell>
+                <TableCell className='text-gray-400 font-medium'>{product.description || '-'}</TableCell>
                 <TableCell className="text-right text-gray-400 font-medium">{product.price}</TableCell>
                 <TableCell className="text-center space-x-2 text-gray-400 font-medium">
           <Button variant="ghost" size="sm">Edit</Button>

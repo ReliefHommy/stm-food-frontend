@@ -42,8 +42,11 @@ export default function RecipeCarousel() {
     <section className="bg-white py-12">
           <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-          Explore Thai Recipes
+          Explore Weekly Catelogs
         </h2>
+        
+     
+    
 
         <div ref={sliderRef} className="keen-slider">
           {recipes.map((recipe) => (

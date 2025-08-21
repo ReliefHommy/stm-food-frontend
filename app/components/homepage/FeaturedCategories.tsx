@@ -30,7 +30,7 @@ export default function FeaturedCategories() {
     <section className="bg-white py-12">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-          Featured Categories
+          Featured Stores
         </h2>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">

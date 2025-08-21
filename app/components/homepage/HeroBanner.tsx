@@ -1,4 +1,4 @@
-// app/components/HeroBanner.tsx
+// app/components/homepage/HeroBanner.tsx
 import Link from 'next/link';
 
 

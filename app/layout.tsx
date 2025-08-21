@@ -2,7 +2,7 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'STM Food',
+  title: 'STM Food RootLayout',
   description: 'Frontend for STM Food project',
 };
 

@@ -1,6 +1,4 @@
-// /app/dashboard/products/page.tsx
-
-// /app/dashboard/products/page.tsx
+//app/vendors/products/page.tsx
 
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
@@ -18,10 +16,13 @@ from "@/components/ui/table"
 import Link from "next/link"
 import { Button } from '@/components/ui/button'
 import { Trash2 } from "lucide-react"
+import { EditProductDialog } from '@/components/products/EditProductDialog'
+import { EditProductDialogWrapper } from '@/components/products/EditProductDialogWrapper'
+import { DeleteProductButton } from '@/components/products/DeleteProductButton'
 //import { Pencil } from "lucide-react"
 
 
-export default async function ProductsPage() {
+export default async function VendorProductsPage() {
   const cookieStore = cookies()
   const token = cookieStore.get('access_token')
 
@@ -42,23 +43,29 @@ export default async function ProductsPage() {
 
   const products = await res.json()
 
+  function mutate(): void {
+    throw new Error('Function not implemented.')
+  }
+
   return (
-    <div className="p-6">
-    
-      
-<div className="flex justify-between items-center mb-4">
-  <h1 className="text-2xl font-bold text-gray-600">My Products</h1>
+    <section>
+      <div className="flex justify-between items-center mb-4">
+  <h1 className="text-2xl font-bold text-gray-600">My Vendor's Products</h1>
+     <Link
+          href="/vendor/products/new"
+          className="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+        >
+          + Add Product
+        </Link>
  
-  <Link href="/dashboard/products/new">
-    <Button className="text-2xl font-bold text-gray-600" >Logout</Button>
-  </Link>
+ 
   
   
 </div>
 
 
-      <div className="overflow-x-auto">
-         <button className="bg-green-600 text-white px-4 py-2 rounded">+ Add Product</button>
+      <div className="rounded bg-gray overflow-hidden">
+        
 
         <Table>
           <TableHeader>
@@ -77,24 +84,37 @@ export default async function ProductsPage() {
     alt={product.image}
     className="w-16 h-16 object-cover rounded"
 
-  /></TableCell>
+  />
+  </TableCell>
                 <TableCell className='text-gray-400 font-medium'>{product.title || '-'}</TableCell>
                 <TableCell className='text-gray-400 font-medium'>{product.description ? product.description.slice(0, 60) + (product.description.length > 60 ? '...' : '')
     :  '-'}</TableCell>
                 <TableCell className="text-right text-gray-400 font-medium">{product.price}</TableCell>
                 <TableCell className="text-center space-x-2 text-gray-400 font-medium">
-          <Button variant="ghost" size="sm">Edit</Button>
-          <Button variant="ghost" size="icon">
-  <Trash2 className="h-4 w-4" />
-</Button>
+        <EditProductDialogWrapper product={product} />
+        <DeleteProductButton productId={product.id} />
+
+
 
           
         </TableCell>
+
               </TableRow>
             ))}
           </TableBody>
         </Table>
+     
+     
       </div>
-    </div>
+      <Link
+  href="/vendor/products/new"
+  className="inline-flex items-center rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+>
+  + Add Product
+</Link>
+    
+      
+
+    </section>
   )
 }
