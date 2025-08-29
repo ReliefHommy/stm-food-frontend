@@ -2,7 +2,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
-const DJANGO_BASE = process.env.DJANGO_BASE_URL || 'http://localhost:8000';
+
+const API_URL = process.env.API_URL || 'http://127.0.0.1:8000';
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
@@ -20,7 +21,7 @@ export async function POST(req: NextRequest) {
 
       if (token) headers.set('Authorization', `Bearer ${token}`);
 
-      djangoRes = await fetch(`${DJANGO_BASE}/api/products/`, {
+      djangoRes = await fetch(`${API_URL}/api/products/`, {
         method: 'POST',
         headers,
         body: req.body,
@@ -29,7 +30,7 @@ export async function POST(req: NextRequest) {
     } else {
       // JSON request
       const json = await req.json();
-      djangoRes = await fetch(`${DJANGO_BASE}/api/products/`, {
+      djangoRes = await fetch(`${API_URL}/api/products/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

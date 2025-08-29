@@ -6,7 +6,7 @@ export default function Topbar() {
   return (
     <header className="h-14 border-b bg-white flex items-center justify-between px-4">
       <div className="text-sm text-gray-500">
-        Vendor Dashboard in using
+       Dashboard for Partner Store'd Admin
       </div>
       <div className="flex items-center gap-3">
         <span className="text-sm text-gray-800">{vendorName}</span>

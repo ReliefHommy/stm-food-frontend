@@ -15,7 +15,7 @@ export default function Sidebar() {
   const pathname = usePathname();
   return (
     <aside className="w-64 shrink-0 border-r bg-black text-white">
-      <div className="p-4 text-xl font-extrabold text-green-700">STM FOOD</div>
+      <div className="p-4 text-xl font-extrabold text-green-700">Vendor's Dashboard</div>
       <nav className="px-2 pb-4 space-y-1">
         {items.map((it) => {
           const active = pathname.startsWith(it.href);

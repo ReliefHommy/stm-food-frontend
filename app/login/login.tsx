@@ -1,3 +1,4 @@
+//app/login/login.tsx
 'use client'
 
 import { useState } from 'react'
@@ -17,7 +18,8 @@ export default function LoginForm() {
     })
 
     if (res.ok) {
-      router.push('/vendor')
+      //router.push('/dashboard') *Change to UserProfilePage
+      router.push('/vendor') 
     } else {
       const data = await res.json()
       setError(data.error || 'Login failed')

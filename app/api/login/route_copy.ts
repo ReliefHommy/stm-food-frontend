@@ -22,22 +22,23 @@ export async function POST(req: Request) {
   const data = await response.json()
 
   if (!response.ok) {
-    return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
+    console.error('❌ Django login error:', data)
+    return NextResponse.json({ error: data.detail || JSON.stringify(data) || 'Login failed' }, { status: 401 })
   }
 
-
- // ✅ Use NextResponse to set cookie
-  const res = NextResponse.json({ success: true })
-
-  res.cookies.set('access_token', data.access, {
+  // ✅ Correct cookie usage — no await here
+  const cookieStore = await cookies()
+  cookieStore.set({
+    name: 'access_token',
+    value: data.access,
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: true,
     sameSite: 'strict',
-    maxAge: 60 * 60,
+    maxAge: 60 * 60, // 1 hour
     path: '/',
-  });  
+  })
 
-  return res
+  return NextResponse.json({ success: true })
 }
 
 export async function GET() {

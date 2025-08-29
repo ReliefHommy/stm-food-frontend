@@ -6,13 +6,13 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export default async function DashboardPage() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const token = cookieStore.get('access_token');
 
   if (!token?.value) redirect('/login');
 
   // Optional: call Django API to verify token or fetch vendor data
-  const res = await fetch(`${process.env.API_URL}/api/my-profile/`, {
+  const res = await fetch(`${process.env.API_URL}/api/me/`, {
     headers: {
       Authorization: `Bearer ${token.value}`,
     },
@@ -28,7 +28,7 @@ export default async function DashboardPage() {
  return (
   <><div className="p-6">
      <div className="flex justify-between items-center mb-4">
-       <h2 className="text-2xl font-bold">Welcome, {user.email}</h2>
+       <h2 className="text-2xl font-bold">The Me, {user.email}</h2>
 
      </div>
 

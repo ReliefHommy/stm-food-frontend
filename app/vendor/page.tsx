@@ -1,17 +1,18 @@
-// app/dashboard/page.tsx
+// app/vendor/page.tsx
 
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import LogoutButton from './components/LogoutButton';
 
 export default async function DashboardPage() {
-  const cookieStore = cookies();
-  const token = cookieStore.get('access_token');
 
-  if (!token?.value) redirect('/login');
+  const token = (await cookies()).get('access_token');
 
-  // Optional: call Django API to verify token or fetch vendor data
-  const res = await fetch(`${process.env.API_URL}/api/my-profile/`, {
+ if (!token?.value) redirect('/login');
+
+  
+  const res = await fetch(`${process.env.API_URL}/api/me/`, {
+   
     headers: {
       Authorization: `Bearer ${token.value}`,
     },
@@ -27,6 +28,7 @@ export default async function DashboardPage() {
  return (
   <>
     <section className="space-y-6">
+        <p className="text-2xl font-bold">Welcome back- Shop no.{user.id}</p>
 <h1 className="text-lg text-gray-500 font-semibold">Store no.{user.id}</h1>
 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
       <div className="bg-white p-4 rounded shadow">

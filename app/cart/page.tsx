@@ -1,75 +1,53 @@
 'use client';
-import Image from 'next/image';
-import { useState } from 'react';
+
+
+import { useCart } from '../context/CartContext';
+
 
 export default function CartPage() {
-  const [promoCode, setPromoCode] = useState('');
+  const { cart, increaseQty, decreaseQty, removeFromCart, clearCart } = useCart();
 
-  // Dummy cart items
-  const cartItems = [
-    {
-      id: 1,
-      name: 'Red Curry Paste',
-      price: 45,
-      quantity: 2,
-      image: '/products/red.jpg',
-    },
-    {
-      id: 2,
-      name: 'Green Curry Paste',
-      price: 45,
-      quantity: 1,
-      image: '/products/grid-view.jpg',
-    },
-  ];
-
-  const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-10">
-      <h2 className="text-2xl font-bold mb-6">Din Varukorg</h2>
+    <div className="p-6 max-w-2xl mx-auto">
+      <h1 className="text-3xl font-bold mb-4 text-gray-400">Your Cart</h1>
+      {cart.length === 0 ? (
+        <p>Your cart is empty.</p>
+      ) : (
+        <>
+          <ul className="space-y-4">
+            {cart.map(item => (
+              <li key={item.id} className="border-b pb-4">
+                <div className="flex justify-between items-center">
 
-      <div className="space-y-6">
-        {cartItems.map((item) => (
-          <div key={item.id} className="flex items-center justify-between border-b pb-4">
-            <div className="flex items-center gap-4">
-              <Image src={item.image} alt={item.name} width={80} height={80} className="rounded shadow" />
-              <div>
-                <h4 className="font-medium">{item.name}</h4>
-                <p className="text-sm text-gray-500">Pris: {item.price} kr</p>
-                <p className="text-sm text-gray-500">Antal: {item.quantity}</p>
-              </div>
-            </div>
-            <button className="text-red-600 hover:underline text-sm">Ta bort</button>
-          </div>
-        ))}
-      </div>
+                  <div>
+                                      <img
+   src={item.image}
+    alt={item.title}
+    className="w-16 h-16 object-cover rounded"
 
-      {/* Promo & Total */}
-      <div className="mt-6 border-t pt-6 space-y-4">
-        <div className="flex items-center gap-4">
-          <input
-            type="text"
-            value={promoCode}
-            onChange={(e) => setPromoCode(e.target.value)}
-            placeholder="Kampanjkod"
-            className="border px-4 py-2 rounded w-64"
-          />
-          <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm">
-            Använd kod
+  />
+                    <p className="font-bold text-gray-200">{item.title}</p>
+                    <p className="text-gray-400">{item.price} kr × {item.quantity}</p>
+                  </div>
+                  <div className="flex gap-2 text-gray-400">
+                    <button onClick={() => decreaseQty(item.id)}>-</button>
+                    <span>{item.quantity}</span>
+                    <button onClick={() => increaseQty(item.id)}>+</button>
+                    <button onClick={() => removeFromCart(item.id)}>🗑</button>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 font-bold text-right text-gray-400">Total: {total} kr</p>
+          <button onClick={clearCart} className="mt-4 bg-red-600 text-white px-4 py-2 rounded">
+            Clear Cart
           </button>
-        </div>
-
-        <div className="text-right">
-          <p className="text-lg font-semibold">Totalt: {subtotal} kr</p>
-          <a
-            href="/checkout"
-            className="inline-block mt-4 bg-green-700 text-white px-6 py-3 rounded hover:bg-green-800 transition"
-          >
-            Gå till Kassan
-          </a>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 }
+

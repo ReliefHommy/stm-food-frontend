@@ -50,7 +50,7 @@ export default async function VendorProductsPage() {
   return (
     <section>
       <div className="flex justify-between items-center mb-4">
-  <h1 className="text-2xl font-bold text-gray-600">My Vendor's Products</h1>
+  <h1 className="text-2xl font-bold text-gray-600">In-use Vendor's Products</h1>
      <Link
           href="/vendor/products/new"
           className="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"

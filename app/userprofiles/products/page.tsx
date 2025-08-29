@@ -24,12 +24,13 @@ import { Trash2 } from "lucide-react"
 export default async function ProductsPage() {
   const cookieStore = cookies()
   const token = cookieStore.get('access_token')
+  const API_URL = process.env.API_URL || 'http://127.0.0.1:8000';
 
   if (!token?.value) {
     redirect('/login')
   }
 
-  const res = await fetch(`${process.env.API_URL}/api/products/`, {
+  const res = await fetch(`${API_URL}/api/products/`, {
     headers: {
       Authorization: `Bearer ${token.value}`,
     },
