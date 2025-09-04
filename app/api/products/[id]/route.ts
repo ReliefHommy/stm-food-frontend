@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
-const DJANGO_BASE = process.env.DJANGO_BASE_URL || 'http://localhost:8000';
+const DJANGO_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 export const dynamic = 'force-dynamic';
 
 async function authHeader(): Promise<Record<string, string>> {

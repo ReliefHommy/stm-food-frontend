@@ -18,8 +18,8 @@ export default function LoginForm() {
     })
 
     if (res.ok) {
-      //router.push('/dashboard') *Change to UserProfilePage
-      router.push('/vendor') 
+    router.push('/userprofiles') 
+      //router.push('/vendor') 
     } else {
       const data = await res.json()
       setError(data.error || 'Login failed')

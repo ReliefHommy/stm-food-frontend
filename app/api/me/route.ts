@@ -3,13 +3,14 @@ import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
-  const token = cookies().get('access_token')
+  const token = (await cookies()).get('access_token')
 
   if (!token?.value) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
+  //const API_URL = process.env.API_URL || 'http://127.0.0.1:8000'
 
-  const API_URL = process.env.API_URL || 'http://127.0.0.1:8000'
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000'
 
   try {
     const res = await fetch(`${API_URL}/api/my-profile/`, {

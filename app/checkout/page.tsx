@@ -1,21 +1,23 @@
 'use client';
 
-
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { useCart } from '../context/CartContext';
 
-export default function CheckoutPage() {
-  const { cart, clearCart } = useCart();
-  const router = useRouter();
 
-  const [form, setForm] = useState({
-    full_name: '',
-    phone: '',
-    shipping_address: '',
-    notes: '',
-    delivery_date: '',
-  });
+export default function CheckoutPage() {
+  const { cart, clearCart} = useCart();
+  const router = useRouter();
+  
+
+const [form, setForm] = useState({
+  full_name: '',
+  phone: '',
+  shipping_address: '',
+  delivery_date: '',
+  notes: '',
+});
+  
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -29,60 +31,74 @@ export default function CheckoutPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+  setError('');
 
-    try {
-      const token = document.cookie
-        .split('; ')
-        .find(row => row.startsWith('access_token='))
-        ?.split('=')[1];
+try {
+    const orderPayload = {
+      full_name: form.full_name,
+      phone: form.phone,
+      shipping_address: form.shipping_address,
+      delivery_date: form.delivery_date || "2025-08-30",
+      notes: form.notes || "Please call on arrival.",
+      total_amount: total,
+      items: cart.map(item => ({
+        product: item.id,
+        quantity: item.quantity,
+        price_at_purchase: item.price,
+      })),
+    };
 
-      if (!token) {
-        setError('Please log in to place an order.');
-        setLoading(false);
-        return;
-      }
 
-      const orderPayload = {
-        ...form,
-        total_amount: total,
-        items: cart.map(item => ({
-          product: item.id,
-          quantity: item.quantity,
-          price: item.price,
-        })),
-      };
+    // Replace this with your actual logic to get the token, e.g., from localStorage or context
+    const token = ""; // e.g., localStorage.getItem('token') || ""
 
-      const res = await fetch('http://127.0.0.1:8000/api/orders/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(orderPayload),
-      });
+    const res = await fetch('/api/place-order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(orderPayload),
+    });
+    const data = await res.json();
 
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.detail || 'Failed to place order.');
-      }
-
-      clearCart();
-      alert('Order placed successfully!');
-      router.push('/');
-    } catch (err: any) {
-      console.error(err);
-      setError(err.message || 'Something went wrong.');
-    } finally {
-      setLoading(false);
+   if (!res.ok) {
+     
+      console.error('Error details:', data);
+      throw new Error('Failed to place order.You may need to Login!');
     }
-  };
+
+    const orderId = data.order_id ?? data.id ?? "";
+    console.log('Order success:', data);
+    clearCart();
+    //router.push(`/order-confirmation/${orderId}`);
+    router.replace(`/thank-you?order=${encodeURIComponent(orderId)}`);
+ 
+
+    
+    // Handle success: clear cart, redirect, etc.
+  } catch (err: any) {
+    setError(err.message || 'An error occurred.');
+  } finally {
+    setLoading(false);
+  }
+
+  
+};
 
   return (
+    
     <div className="p-6 max-w-2xl mx-auto">
       <h1 className="text-3xl font-bold mb-6">Checkout</h1>
 
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+
+      {error && <p className="text-red-500 mb-4">{error}
+        <a
+      href="/login"
+      className="underline text-blue-600 hover:text-blue-800 ml-1"
+    >
+      Login
+    </a></p>}
 
       {cart.length === 0 ? (
         <p>Your cart is empty.</p>
@@ -112,6 +128,7 @@ export default function CheckoutPage() {
             className="w-full bg-green-600 text-white py-3 rounded hover:bg-green-700"
           >
             {loading ? 'Placing Order...' : 'Place Order'}
+            
           </button>
         </form>
       )}

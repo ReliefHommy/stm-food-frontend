@@ -29,8 +29,8 @@ export default async function VendorProductsPage() {
   if (!token?.value) {
     redirect('/login')
   }
-
-  const res = await fetch(`${process.env.API_URL}/api/products/`, {
+  //const res = await fetch(`${process.env.API_URL}/api/products/`,
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/`, {
     headers: {
       Authorization: `Bearer ${token.value}`,
     },

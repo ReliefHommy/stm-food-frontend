@@ -4,14 +4,14 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import LogoutButton from './components/LogoutButton';
 
-export default async function DashboardPage() {
+export default async function VendorDashboard() {
 
   const token = (await cookies()).get('access_token');
 
  if (!token?.value) redirect('/login');
 
   
-  const res = await fetch(`${process.env.API_URL}/api/me/`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/me/`, {
    
     headers: {
       Authorization: `Bearer ${token.value}`,

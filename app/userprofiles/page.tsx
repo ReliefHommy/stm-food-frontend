@@ -1,18 +1,17 @@
-// app/dashboard/page.tsx
+// app/userprofile/page.tsx
 
 import LogoutButton from './components/LogoutButton';
-
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-export default async function DashboardPage() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get('access_token');
+export default async function UserProfile() {
+   const token = (await cookies()).get('access_token');
+
 
   if (!token?.value) redirect('/login');
 
-  // Optional: call Django API to verify token or fetch vendor data
-  const res = await fetch(`${process.env.API_URL}/api/me/`, {
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/me/`, {
     headers: {
       Authorization: `Bearer ${token.value}`,
     },

@@ -4,8 +4,9 @@ import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
   const { email, password } = await req.json()
+  // const response = await fetch(`${process.env.API_URL}/api/token/`,
 
-  const response = await fetch(`${process.env.API_URL}/api/token/`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/token/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -42,7 +43,7 @@ export async function POST(req: Request) {
 
 export async function GET() {
   const cookieStore = cookies()
-  const token = cookieStore.get('access_token')
+  const token = (await cookieStore).get('access_token')
 
   if (!token) {
     return NextResponse.json({ authenticated: false }, { status: 401 })
