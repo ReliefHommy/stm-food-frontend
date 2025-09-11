@@ -4,11 +4,11 @@ import { ReactNode } from 'react'
 import { usePathname } from 'next/navigation';
 import Link from 'next/link'
 const items = [
-  { href: '/vendor/dashboard', label: 'Dashboard', icon: '🏠' },
-  { href: '/vendor/products',  label: 'My Products', icon: '📦' },
-  { href: '/vendor/products/new', label: 'Add Product', icon: '➕' },
-  { href: '/vendor/orders',    label: 'Orders',   icon: '📜' },
-  { href: '/vendor/settings',  label: 'Settings', icon: '⚙️' },
+  { href: '/user/dashboard', label: 'Dashboard', icon: '🏠' },
+  { href: '/user/products',  label: 'My Products', icon: '📦' },
+  { href: '/user/products/new', label: 'Add Product', icon: '➕' },
+  { href: '/userprofiles/orders',    label: 'Orders',   icon: '📜' },
+  { href: '/user/settings',  label: 'Settings', icon: '⚙️' },
 ];
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {

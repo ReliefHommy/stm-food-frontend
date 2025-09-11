@@ -32,21 +32,24 @@ const [form, setForm] = useState({
     e.preventDefault();
     setLoading(true);
   setError('');
+  
 
 try {
+  
     const orderPayload = {
-      full_name: form.full_name,
-      phone: form.phone,
-      shipping_address: form.shipping_address,
-      delivery_date: form.delivery_date || "2025-08-30",
-      notes: form.notes || "Please call on arrival.",
-      total_amount: total,
-      items: cart.map(item => ({
-        product: item.id,
-        quantity: item.quantity,
-        price_at_purchase: item.price,
-      })),
+  "full_name": "Nok Tophita",
+  "phone": "123456789",
+  "shipping_address": "Test Lane 42",
+  "delivery_date": "2025-09-10",
+  "notes": "Please call when arrive.",
+  "total_amount": 299,
+items: cart.map(item => ({
+  product: item.id, // ✅ Real product ID from your cart
+  quantity: item.quantity,
+  price_at_purchase: item.price,
+}))
     };
+    console.log("🛒 Sending Order Payload:", orderPayload);
 
 
     // Replace this with your actual logic to get the token, e.g., from localStorage or context
@@ -61,6 +64,7 @@ try {
       body: JSON.stringify(orderPayload),
     });
     const data = await res.json();
+    console.log("✅ Order API response:", data);
 
    if (!res.ok) {
      
@@ -68,8 +72,10 @@ try {
       throw new Error('Failed to place order.You may need to Login!');
     }
 
-    const orderId = data.order_id ?? data.id ?? "";
+    const orderId = data.order_id ?? ""; 
+
     console.log('Order success:', data);
+    if (!orderId) throw new Error("Order placed but no order ID returned.");
     clearCart();
     //router.push(`/order-confirmation/${orderId}`);
     router.replace(`/thank-you?order=${encodeURIComponent(orderId)}`);

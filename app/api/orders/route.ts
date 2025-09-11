@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 
 // POST to /api/orders/
 export async function createOrder(orderData: any) {
-  const res = await fetch(`${process.env.API_URL}/api/orders/`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

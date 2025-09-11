@@ -6,6 +6,7 @@ import ShopNavbar from "../components/shop/ShopNavbar";
 export default function ThankYouPage() {
   const params = useSearchParams();
   const orderId = params.get("order");
+  console.log("🧾 Order ID from URL:", orderId);
 
   return (
       <><ShopNavbar /><main className="min-h-[70vh] flex items-center justify-center px-4 py-10">
@@ -25,7 +26,7 @@ export default function ThankYouPage() {
               <p className="text-gray-600 mb-6">
                   {orderId ? (
                       <>
-                          Your order <span className="font-mono">2025-01-A{orderId}</span> is confirmed.
+                          Your order <span className="font-mono">{orderId}</span> is confirmed.
                       </>
                   ) : (
                       "Your order has been confirmed."
@@ -48,6 +49,17 @@ export default function ThankYouPage() {
                   >
                       View My Orders
                   </button>
+                  
+  <button
+    onClick={() => window.open(`/api/orders/${orderId}/receipt/`, "_blank")}
+    className="px-6 py-3 rounded-xl border text-sm hover:bg-gray-100 transition"
+  >
+    Download Receipt (PDF)
+  </button>
+
+              
+              
+              
               </div>
           </div>
       </main></>
