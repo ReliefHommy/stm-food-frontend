@@ -3,30 +3,44 @@
 import { ReactNode } from 'react'
 import { usePathname } from 'next/navigation';
 import Link from 'next/link'
+
 const items = [
-  { href: '/user/dashboard', label: 'Dashboard', icon: '🏠' },
-  { href: '/user/products',  label: 'My Products', icon: '📦' },
-  { href: '/user/products/new', label: 'Add Product', icon: '➕' },
-  { href: '/userprofiles/orders',    label: 'Orders',   icon: '📜' },
-  { href: '/user/settings',  label: 'Settings', icon: '⚙️' },
+  { href: '/userprofiles', label: 'Profile', icon: '👤' },
+  { href: '/userprofiles/orders',  label: 'My Orders', icon: '📦' },
+  { href: '/userprofiles/Wishlists',    label: 'Wishlist',   icon: '❤️' },
+   { href: '/partner/subscribe',    label: ' Sell in STM',   icon: '🚪' },
+  { href: '/userprofiles/settings',  label: 'Settings', icon: '⚙️' },
 ];
 
-export default function DashboardLayout({ children }: { children: ReactNode }) {
+export default function Layout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+
+  const handleLogout = async () => {
+    await fetch('/api/logout', {
+      method: 'POST',
+      credentials: 'include',
+    })
+    window.location.href = '/login'
+  }
+
+
+
   return (
-    <div className="flex min-h-screen">
+    <div className="min-h-screen flex flex-col sm:flex-row bg-gray-50">
       {/* Sidebar */}
-    <aside className="w-64 shrink-0 border-r bg-black">
-      <div className="p-4 text-xl font-extrabold text-green-700">STM FOOD</div>
-      <nav className="px-2 pb-4 space-y-1">
+    <aside className="sm:w-64 w-full bg-white border-r p-4 shadow-sm">
+      <div className="text-2xl font-extrabold text-green-700 mb-4">STM FOOD</div>
+      <nav className="space-y-1">
         {items.map((it) => {
           const active = pathname.startsWith(it.href);
           return (
             <Link
               key={it.href}
               href={it.href}
-              className={`flex items-center gap-3 rounded px-3 py-2 text-sm
-                ${active ? 'bg-green-50 text-white font-semibold' : 'hover:bg-green-50 text-white'}`}
+              className={`flex items-center gap-2 rounded px-3 py-2 text-sm transition
+                ${active
+                   ? 'bg-green-100 text-green-800 font-semibold' 
+                   : 'text-gray-600 hover:bg-green-50 hover:text-green-700'}`}
             >
               <span>{it.icon}</span>
               <span>{it.label}</span>
@@ -35,9 +49,16 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         })}
       </nav>
     </aside>
+  {/* Top-right Logout */}
+      <button
+        onClick={handleLogout}
+        className="absolute top-4 right-6 bg-red-600 text-white px-4 py-1 text-sm rounded hover:bg-red-700"
+      >
+        Logout
+      </button>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 bg-white p-8">
+      <main className="flex-1 p-4 p-8">
         {children}
       </main>
     </div>

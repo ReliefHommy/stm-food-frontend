@@ -1,3 +1,4 @@
+//app/shop/page.tsx
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -14,7 +15,7 @@ export default function ShopPage() {
 
   
 useEffect(() => {
-  fetch('http://127.0.0.1:8000/api/products')
+  fetch('http://127.0.0.1:8000/api/food/products/')
     .then(res => res.json())
     .then(data => {
       console.log('Raw API data:', data);
@@ -34,6 +35,8 @@ useEffect(() => {
 
 
 
+
+
   return (
       <><ShopNavbar /><br></br><div className="max-w-7xl mx-auto px-6 py-10 bg-white">
 
@@ -48,14 +51,7 @@ useEffect(() => {
 
 
       {/* Banner */}
-      <div className="mb-8 rounded-lg overflow-hidden shadow">
-        <Image
-          src="/banners/thaiband.png"
-          alt="Shop Banner"
-          width={1200}
-          height={300}
-          className="w-full object-cover" />
-      </div>
+
 
       {/* Placeholder for next sections */}
       <h1 className="text-2xl font-bold text-gray-800 mb-4">Curry Pastes</h1>

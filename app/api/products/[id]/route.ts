@@ -1,92 +1,35 @@
-// app/api/products/[id]/route.ts
-import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
+// app/userprofiles/orders/[id]/page.tsx
+import { notFound } from 'next/navigation'
 
-const DJANGO_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-export const dynamic = 'force-dynamic';
-
-async function authHeader(): Promise<Record<string, string>> {
-  const store = await cookies();
-  const token = store.get('access_token')?.value;
-  if (token) {
-    return { Authorization: `Bearer ${token}` };
-  }
-  return {};
-}
-
-function pass(res: Response, body: any) {
-  return new NextResponse(
-    typeof body === 'string' ? body : JSON.stringify(body),
-    { status: res.status, headers: { 'Content-Type': 'application/json' } }
-  );
-}
-
-export async function GET(_req: NextRequest, { params }: { params: { id: string } }) {
-  const res = await fetch(`${DJANGO_BASE}/api/products/${params.id}/`, {
-    headers: { ...(await authHeader()) },
+export default async function OrderDetailPage({ params }: { params: { id: string } }) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/my-orders/${params.id}`, {
     cache: 'no-store',
-  });
-  const data = await res.json().catch(() => ({}));
-  return pass(res, data);
-}
+  })
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
-  const headers = await authHeader();
-  const ct = req.headers.get('content-type') || '';
-
-  if (ct.includes('multipart/form-data')) {
-    const form = await req.formData();
-    const res = await fetch(`${DJANGO_BASE}/api/products/${params.id}/`, {
-      method: 'PATCH',
-      headers,            // DO NOT set Content-Type for FormData
-      body: form as any,
-      // @ts-ignore - Node fetch streaming quirk
-      duplex: 'half',
-    });
-    const data = await res.json().catch(() => ({}));
-    return pass(res, data);
-  } else {
-    const body = await req.text(); // forward raw JSON
-    const res = await fetch(`${DJANGO_BASE}/api/products/${params.id}/`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json', ...headers } as HeadersInit,
-      body,
-    });
-    const data = await res.json().catch(() => ({}));
-    return pass(res, data);
+  if (!res.ok) {
+    return notFound()
   }
+
+  const order = await res.json()
+
+  return (
+    <div className="max-w-3xl mx-auto px-4 py-8">
+      <h1 className="text-2xl font-bold mb-4">Order #{order.id}</h1>
+      <p className="mb-2">Full Name: {order.full_name}</p>
+      <p className="mb-2">Phone: {order.phone}</p>
+      <p className="mb-2">Address: {order.shipping_address}</p>
+      <p className="mb-2">Delivery Date: {order.delivery_date}</p>
+      <p className="mb-2">Total: {order.total_amount} kr</p>
+
+      <h2 className="mt-6 text-xl font-semibold">Items</h2>
+      <ul className="mt-2 space-y-2">
+        {order.items.map((item: any, index: number) => (
+          <li key={index} className="border p-2 rounded">
+            🛒 Product ID: {item.product} — Quantity: {item.quantity} — Price: {item.price_at_purchase} kr
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
-  const headers = await authHeader();
-  const ct = req.headers.get('content-type') || '';
-  if (ct.includes('multipart/form-data')) {
-    const form = await req.formData();
-    const res = await fetch(`${DJANGO_BASE}/api/products/${params.id}/`, {
-      method: 'PUT',
-      headers,
-      body: form as any,
-      // @ts-ignore
-      duplex: 'half',
-    });
-    const data = await res.json().catch(() => ({}));
-    return pass(res, data);
-  } else {
-    const body = await req.text();
-    const res = await fetch(`${DJANGO_BASE}/api/products/${params.id}/`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json', ...headers },
-      body,
-    });
-    const data = await res.json().catch(() => ({}));
-    return pass(res, data);
-  }
-}
-
-export async function DELETE(_req: NextRequest, { params }: { params: { id: string } }) {
-  const res = await fetch(`${DJANGO_BASE}/api/products/${params.id}/`, {
-    method: 'DELETE',
-    headers: { ...(await authHeader()) },
-  });
-  return new NextResponse(null, { status: res.status });
-}

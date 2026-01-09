@@ -1,10 +1,10 @@
-// /app/api/login/route.ts
+//app/api/login/route.ts
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
   const { email, password } = await req.json()
-  // const response = await fetch(`${process.env.API_URL}/api/token/`,
+ 
 
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/token/`, {
     method: 'POST',

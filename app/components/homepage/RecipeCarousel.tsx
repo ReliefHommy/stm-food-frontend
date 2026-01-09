@@ -6,23 +6,24 @@ import Image from 'next/image';
 
 const recipes = [
   {
-    name: 'Thai Basil Chicken',
-    image: '/recipes/4-curry.jpg',
+    name: 'Thai Fruit',
+    image: '/banners/banner-fruits.png',
     href: '/recipes/4-curry',
   },
   {
     name: 'Tom Yum Soup',
-    image: '/recipes/papaya.jpg',
+    image: '/banners/banner-vegetable.png',
     href: '/recipes/papaya',
   },
   {
     name: 'Green Curry',
-    image: '/recipes/Shrimp-green-curry.jpg',
+    image: '/banners/banner-herbs.png',
     href: '/recipes/Shrimp-green-curry',
   },
 ];
 
 export default function RecipeCarousel() {
+
     const [sliderRef] = useKeenSlider<HTMLDivElement>({
     loop: true,
     slides: {
@@ -42,7 +43,7 @@ export default function RecipeCarousel() {
     <section className="bg-white py-12">
           <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-          Explore Weekly Catelogs
+          Explore Weekly Deals
         </h2>
         
      

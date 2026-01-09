@@ -15,8 +15,8 @@ type Product = {
 
 async function getProduct(slug: string): Promise<Product | null> {
   try {
-    //const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${slug}`,
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${slug}`, {
+  
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/food/products/${slug}`, {
       cache: 'no-store',
     });
 

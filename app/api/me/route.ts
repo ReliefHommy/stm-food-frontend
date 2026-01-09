@@ -8,7 +8,7 @@ export async function GET() {
   if (!token?.value) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
-  //const API_URL = process.env.API_URL || 'http://127.0.0.1:8000'
+
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000'
 

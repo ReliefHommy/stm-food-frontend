@@ -1,9 +1,10 @@
 // app/components/Navbar.tsx
 'use client';
 import { useState } from 'react';
+import Image from "next/image"
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ShoppingCart, BookOpen, Utensils, Search, User} from 'lucide-react'; // optional: use lucide icons
+import { Menu, X, ShoppingCart, BookOpen, Utensils, Search,Home, User} from 'lucide-react'; // optional: use lucide icons
 
 
 export default function Navbar() {
@@ -11,9 +12,9 @@ export default function Navbar() {
   const pathname = usePathname();
 
     const navItems = [
-    { name: 'shop', href: '/shop',icon: <ShoppingCart size={18}/> },
+    { name: 'Thaishops', href: '/shop',icon: <Home size={18}/> },
     { name: 'Recipes', href: '/recipes', icon: <BookOpen size={18}/> },
-    { name: 'Partner', href: '/partner', icon: <Utensils size={18}/> },
+    { name: 'Restaurangs', href: '/partner', icon: <Utensils size={18}/> },
   ];
 
     const linkClass = (href: string) =>
@@ -25,9 +26,31 @@ export default function Navbar() {
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         {/* Left: Logo */}
-        <Link href="/" className="text-2xl font-extrabold text-green-600 tracking-tight">
-          STM FOOD
-        </Link>
+        <Link href="/" className="flex items-center gap-2">
+           <Image src="/STM_logo.png" alt="Somtam Marketplace" width={172} height={35} />
+            
+          </Link>
+        {/* Center: Search bar */}
+        <div className="relative hidden md:block w-1/3">
+          <div className="flex items-center bg-white rounded-md overflow-hidden">
+            <select className="text-gray-600 text-sm px-3 py-2 outline-none border-r border-gray-200">
+              <option value="all">All</option>
+              <option value="Fresh Produce">Fresh Produce</option>
+              <option value="Rice & Grains">Rice & Grains
+</option>
+              <option value="Canned & Preserved Foods">Canned & Preserved Foods
+</option>
+            </select>
+            <input
+              type="text"
+              placeholder="Search.."
+              className="flex-grow px-4 py-2 text-gray-700 focus:outline-none"
+            />
+            <button className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2">
+              <Search size={20} />
+            </button>
+          </div>
+        </div>
          {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-6 text-sm font-medium">
            {navItems.map((item) => (
@@ -37,21 +60,17 @@ export default function Navbar() {
             </Link>
           ))}
 
-          {/* Search Icon */}
-         <div className="relative">
-  <input
-    type="text"
-    placeholder="Search..."
-    className="border border-gray-300 rounded px-3 py-1 text-sm w-40 focus:outline-none focus:ring-2 focus:ring-green-500"
-  />
-  <Search className="absolute right-2 top-1.5 text-gray-400" size={16} />
-</div>
+
 
 
           {/* Login/Register */}
           <Link href="/login" className={linkClass('/login')}>
             <User size={18} />
             Login / Register
+          </Link>
+           <Link href="/cart" className="relative hover:text-yellow-400 transition">
+            <ShoppingCart size={20} />
+            <span className="absolute -top-2 -right-2 bg-red-500 text-[10px] rounded-full px-1.5 py-0.5">0</span>
           </Link>
         </div>
         {/* Mobile Hamburger Icon */}

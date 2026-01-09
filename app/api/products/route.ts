@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 
       if (token) headers.set('Authorization', `Bearer ${token}`);
 
-      djangoRes = await fetch(`${API_URL}/api/products/`, {
+      djangoRes = await fetch(`${API_URL}/api/food/products/`, {
         method: 'POST',
         headers,
         body: req.body,
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     } else {
       // JSON request
       const json = await req.json();
-      djangoRes = await fetch(`${API_URL}/api/products/`, {
+      djangoRes = await fetch(`${API_URL}/api/food/products/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

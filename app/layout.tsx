@@ -1,3 +1,4 @@
+//app/layout.tsx
 
 import { CartProvider } from './context/CartContext';
 import './globals.css';

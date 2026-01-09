@@ -62,3 +62,45 @@ a {
   }
 }
 
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+svg {
+  display: block;
+}
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print\:block {
+    display: block !important;
+  }
+
+  .print\:text-sm {
+    font-size: 12px !important;
+  }
+}
+@page {
+  margin: 20mm;
+}

@@ -51,7 +51,7 @@ export default function ThankYouPage() {
                   </button>
                   
   <button
-    onClick={() => window.open(`/api/orders/${orderId}/receipt/`, "_blank")}
+    onClick={() => window.open(`/api/food/orders/${orderId}/receipt/`, "_blank")}
     className="px-6 py-3 rounded-xl border text-sm hover:bg-gray-100 transition"
   >
     Download Receipt (PDF)

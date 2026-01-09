@@ -8,19 +8,35 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ detail: 'Unauthorized' }, { status: 401 });
   }
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders/`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/food/my-orders/`;
 
-  const data = await res.json();
+  try {
+    const res = await fetch(apiUrl, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  if (!res.ok) {
-    return NextResponse.json(data, { status: res.status });
+    const contentType = res.headers.get('content-type') || '';
+
+    if (!res.ok) {
+      const text = await res.text();
+      console.error(`❌ Error response from ${apiUrl} (${res.status}):`, text.slice(0, 300));
+      return NextResponse.json({ error: 'Backend error', status: res.status, raw: text }, { status: res.status });
+    }
+
+    if (!contentType.includes('application/json')) {
+      const text = await res.text();
+      console.error('⚠️ Expected JSON but got HTML:', text.slice(0, 300));
+      return NextResponse.json({ error: 'Invalid response format', raw: text }, { status: 500 });
+    }
+
+    const data = await res.json();
+    return NextResponse.json(data);
+
+  } catch (error) {
+    console.error('🔥 Unexpected error:', error);
+    return NextResponse.json({ error: 'Unexpected server error' }, { status: 500 });
   }
-
-  return NextResponse.json(data);
 }
-

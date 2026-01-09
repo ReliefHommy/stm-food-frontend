@@ -7,7 +7,7 @@ export default function ShopBanner() {
     <div className="mb-8 rounded-lg overflow-hidden shadow">
       <Link href="/shop">
         <img
-          src="/banners/shop-banner.jpg"
+          src="/banners/thaiband.png"
           alt="Shop Banner"
           width={1200}
           height={300}
