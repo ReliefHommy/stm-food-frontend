@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ detail: 'Unauthorized' }, { status: 401 });
   }
 
-  const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/food/my-orders/`;
+  const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE}/api/food/my-orders/`;
 
   try {
     const res = await fetch(apiUrl, {

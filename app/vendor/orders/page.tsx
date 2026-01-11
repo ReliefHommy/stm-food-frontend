@@ -19,6 +19,10 @@ export default function OrdersPage() {
   useEffect(() => {
     apiFetch<Order[]>('/api/vendor/orders/')
       .then(setList)
+      .catch((err) => {
+        console.error('Failed to load orders', err)
+        setList([])
+      })
       .finally(() => setLoading(false));
   }, []);
 

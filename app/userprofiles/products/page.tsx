@@ -1,4 +1,4 @@
-// /app/dashboard/products/page.tsx
+//app/userprofiles/products/page.tsx
 
 
 import { cookies } from 'next/headers'
@@ -22,26 +22,54 @@ import LogoutButton from '../components/LogoutButton'
 
 
 export default async function ProductsPage() {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const token = cookieStore.get('access_token')
-  const API_URL = process.env.API_URL || 'http://127.0.0.1:8000';
+  const API_URL = process.env.API_URL || 'https://stm-food-backend-production.up.railway.app';
 
   if (!token?.value) {
     redirect('/login')
   }
 
-  const res = await fetch(`${API_URL}/api/food/products/`, {
-    headers: {
-      Authorization: `Bearer ${token.value}`,
-    },
-    cache: 'no-store',
-  })
-
-  if (!res.ok) {
-    redirect('/dashboard') // or show fallback
+  type Product = {
+    id: string | number
+    title?: string
+    description?: string
+    price?: number
+    image?: string
   }
 
-  const products = await res.json()
+  let products: Product[] = []
+  try {
+    const res = await fetch(`${API_URL}/api/food/products/`, {
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
+      cache: 'no-store',
+    })
+
+    if (res.status === 401) {
+      // token invalid/expired
+      redirect('/login')
+    }
+
+    if (!res.ok) {
+      // Log server error body for debugging (don't leak to UI)
+      const txt = await res.text().catch(() => '')
+      console.error('Products fetch failed', res.status, txt)
+      redirect('/dashboard') // or show a friendly error page/component
+    }
+
+    const data = await res.json().catch(() => null)
+    if (Array.isArray(data)) {
+      products = data
+    } else {
+      console.warn('Unexpected products response', data)
+      products = []
+    }
+  } catch (err) {
+    console.error('Network error fetching products', err)
+    redirect('/dashboard')
+  }
 
   return (
     <><div className="p-6">
@@ -54,10 +82,23 @@ export default async function ProductsPage() {
 
 
       </div>
+            <div className="flex justify-between items-center mb-4">
+  <h1 className="text-2xl font-bold text-gray-600">In-use Vendor's Products</h1>
+     <Link
+          href="/vendor/products/new"
+          className="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+        >
+          + Add Product
+        </Link>
+ 
+ 
+  
+  
+</div>
 
 
       <div className="overflow-x-auto">
-        <button className="bg-green-600 text-white px-4 py-2 rounded">+ Add Product</button>
+        
 
         <Table>
           <TableHeader>

@@ -1,28 +1,27 @@
 // app/api/vendor/products/route.ts
-import { NextResponse } from 'next/server';
-
-const BASE = process.env.DJANGO_API_URL || 'http://localhost:8000';
-
-export async function GET() {
-  const res = await fetch(`${BASE}/api/vendor/products/`, {
-    headers: { 'Content-Type': 'application/json' },
-    // If using session cookies across domains you’ll need sameSite config; prefer token auth:
-    // headers: { Authorization: `Token ${process.env.DJANGO_API_TOKEN}` }
-  });
-  const data = await res.json();
-  if (!res.ok) return NextResponse.json({ error: data?.detail || 'Fetch error' }, { status: res.status });
-  return NextResponse.json(data);
-}
+import { NextResponse } from 'next/server'
+import { cookies } from 'next/headers'
 
 export async function POST(req: Request) {
-  const body = await req.json();
-  const res = await fetch(`${BASE}/api/vendor/products/`, {
+  const cookieStore = cookies()
+  const token = (await cookieStore).get('access_token')?.value
+  if (!token) {
+    return new NextResponse(JSON.stringify({ error: 'Unauthorized' }), { status: 401 })
+  }
+
+  const body = await req.json()
+  const API_URL = process.env.API_URL
+  const upstream = await fetch(`${API_URL}/api/food/products/`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    // 'Authorization': `Token ${process.env.DJANGO_API_TOKEN}`,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(body),
-  });
-  const data = await res.json();
-  if (!res.ok) return NextResponse.json({ error: data?.detail || 'Create error' }, { status: res.status });
-  return NextResponse.json(data, { status: 201 });
+  })
+
+  const data = await upstream.json().catch(() => ({ error: 'Upstream error' }))
+  if (!upstream.ok) return new NextResponse(JSON.stringify(data), { status: upstream.status })
+
+  return NextResponse.json(data)
 }

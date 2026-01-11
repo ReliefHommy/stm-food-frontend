@@ -1,8 +1,9 @@
 // app/userprofiles/orders/[id]/page.tsx
 import { notFound } from 'next/navigation'
 
-export default async function OrderDetailPage({ params }: { params: { id: string } }) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/my-orders/${params.id}`, {
+export default async function OrderDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await Promise.resolve(params)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/api/my-orders/${id}`, {
     
 
 

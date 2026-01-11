@@ -16,7 +16,7 @@ type Product = {
 async function getProduct(slug: string): Promise<Product | null> {
   try {
   
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/food/products/${slug}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/api/food/products/${slug}`, {
       cache: 'no-store',
     });
 
@@ -29,7 +29,7 @@ async function getProduct(slug: string): Promise<Product | null> {
 }
 
 // ✅ Async Server Component with awaited params
-export default async function ProductDetailPage(props: { params: { slug: string } }) {
+export default async function ProductDetailPage(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await Promise.resolve(props.params); // <-- fix here
 
   const product = await getProduct(slug);

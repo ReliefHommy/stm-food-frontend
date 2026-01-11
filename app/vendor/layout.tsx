@@ -1,5 +1,4 @@
-// Update the import paths if your Sidebar and Topbar components are located at 'src/components/vendor/Sidebar.tsx' and 'src/components/vendor/Topbar.tsx'
-
+//app/vendor/layout.tsx
 import Sidebar from "../components/vendor/Sidebar";
 import Topbar from "../components/vendor/Topbar";
 

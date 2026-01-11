@@ -1,13 +1,13 @@
 import { cookies } from "next/headers";
 
 // POST to /api/orders/
-export async function createOrder(orderData: any) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/food/orders/`, {
+async function createOrder(orderData: any) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/api/food/orders/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
 
-     Authorization: `Bearer ${cookies().get('access_token')?.value}`,
+     Authorization: `Bearer ${(await cookies()).get('access_token')?.value}`,
     },
     body: JSON.stringify(orderData),
   });

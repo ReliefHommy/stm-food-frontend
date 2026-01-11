@@ -1,4 +1,3 @@
-//app/vendor/products/new/page.tsx
 'use client';
 
 import { useState } from 'react';
@@ -9,7 +8,7 @@ type FormState = {
   description: string;
   price: string;
   stock: string;
-  image: string;
+  image_url: string;
 };
 
 export default function NewProductPage() {
@@ -20,7 +19,7 @@ export default function NewProductPage() {
     description: '',
     price: '',
     stock: '',
-    image: '',
+    image_url: '',
   });
 
   const [saving, setSaving] = useState(false);
@@ -35,7 +34,7 @@ export default function NewProductPage() {
   // ✅ Simple validation
   const validate = () => {
     if (!form.title.trim()) return 'Name is required.';
-    if (!form.image.trim()) return 'Image URL is required.';
+    if (!form.image_url.trim()) return 'Image URL is required.';
 
     const priceNum = Number(form.price);
     if (Number.isNaN(priceNum) || priceNum <= 0)
@@ -67,22 +66,14 @@ export default function NewProductPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        // ensure browser sends httpOnly cookies to the API route
-        credentials: 'include',
         body: JSON.stringify({
           title: form.title,
           description: form.description,
           price: Number(form.price),
           stock_quantity: Number(form.stock),
-          image: form.image,
+          image_url: form.image_url,
         }),
       });
-
-      if (res.status === 401) {
-        setError('Unauthorized — you must be logged in.')
-        router.push('/login')
-        return
-      }
 
       if (!res.ok) {
         const data = await res.json();
@@ -163,16 +154,16 @@ export default function NewProductPage() {
           <input
             type="url"
             className="w-full rounded-md border px-3 py-2 text-white"
-            value={form.image}
-            onChange={onChange('image')}
+            value={form.image_url}
+            onChange={onChange('image_url')}
             placeholder="https://example.com/image.jpg"
             required
           />
 
-          {form.image && (
+          {form.image_url && (
             <div className="mt-3">
               <img
-                src={form.image}
+                src={form.image_url}
                 alt="Preview"
                 className="h-28 w-auto rounded-md border"
               />
@@ -205,5 +196,6 @@ export default function NewProductPage() {
     </section>
   );
 }
+
 
 

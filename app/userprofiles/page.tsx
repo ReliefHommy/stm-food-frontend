@@ -12,7 +12,7 @@ export default async function UserProfile() {
   if (!token?.value) redirect('/login');
 
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/me/`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/api/me/`, {
     headers: {
       Authorization: `Bearer ${token.value}`,
     },

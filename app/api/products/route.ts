@@ -1,9 +1,9 @@
 // app/api/products/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-//const API_URL = process.env.API_URL || 'http://127.0.0.1:8000';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+
+const API_URL = process.env.NEXT_PUBLIC_API_BASE || 'https://stm-food-backend-production.up.railway.app';
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
@@ -25,8 +25,7 @@ export async function POST(req: NextRequest) {
         method: 'POST',
         headers,
         body: req.body,
-        duplex: 'half', // Forward the raw stream
-      });
+      } as any);
     } else {
       // JSON request
       const json = await req.json();

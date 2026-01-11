@@ -10,7 +10,7 @@ export default function ProductCard() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/food/products")
+    fetch("https://stm-food-backend-production.up.railway.app/api/food/products/")
       .then((res) => res.json())
       .then((data) => {
         const productsArray = Array.isArray(data)
