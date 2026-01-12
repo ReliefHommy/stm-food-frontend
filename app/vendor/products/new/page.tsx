@@ -62,7 +62,7 @@ export default function NewProductPage() {
     setSaving(true);
 
     try {
-      const res = await fetch('/api/vendor/products', {
+      const res = await fetch('/api/vendor/products/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ export default function NewProductPage() {
         return;
       }
 
-      router.push('/vendor/products');
+      router.push('/vendor/products/');
     } catch (err: any) {
       setError(err?.message || 'An error occurred while saving the product.');
     } finally {
@@ -195,7 +195,7 @@ export default function NewProductPage() {
 
           <button
             type="button"
-            onClick={() => router.push('/vendor/products')}
+            onClick={() => router.push('/vendor/products/')}
             className="rounded-md border px-4 py-2 hover:bg-gray-50"
           >
             Cancel
