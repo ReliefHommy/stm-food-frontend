@@ -1,11 +1,12 @@
-import FeaturedCategories from './components/homepage/FeaturedCategories';
+
 import Footer from './components/homepage/Footer';
 import MainNavbar from './components/homepage/MainNavbar';
 import MasonryGrid from './components/homepage/MasonryRecipe';
 import NewAddProducts from './components/homepage/NewAddProducts';
 import NewsletterSignup from './components/homepage/NewsletterSignup';
 import PartnerCallout from './components/homepage/PartnerCallout';
-import RecipeCarousel from './components/homepage/RecipeCarousel';
+import ShopByCategory from './components/homepage/ShopBycategory';
+
 import Layout from './layout';
 //import Button from './components/Button';
 
@@ -41,12 +42,12 @@ export default function HomePage() {
       <Layout>
  
  
-      <MainNavbar />
+
 
      
-      <FeaturedCategories />{/* Shop by category */}
-      <RecipeCarousel /> {/* Explore weekly Deals */}
- <NewAddProducts/>{/* New add produxts */}
+    
+      <MainNavbar />
+ <ShopByCategory/>
 
 
        <MasonryGrid cards={RecipePosts} />

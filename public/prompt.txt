@@ -1,0 +1,6 @@
+[In current  project folder in app/components/homepage/ShopBycategory.tsx]
+
+#Task: Implement the ShopByCategory component in app/components/homepage/ShopByCategory.
+tsx by fetching data from the Django backend.
+
+- https://stm-food-backend-production.up.railway.app/api/food/categories/

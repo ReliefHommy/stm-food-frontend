@@ -15,7 +15,7 @@ const categories = [
   { name: "Health & Specialty", products: 5, image: "/category/Health & Specialty Products.png" },
 ]
 
-export default function ShopByCategory() {
+export default function Featuredcategories() {
   const scrollRef = useRef<HTMLDivElement>(null)
 
   const scroll = (direction: "left" | "right") => {

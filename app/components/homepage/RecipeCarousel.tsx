@@ -8,17 +8,17 @@ const recipes = [
   {
     name: 'Thai Fruit',
     image: '/banners/banner-fruits.png',
-    href: '/recipes/4-curry',
+    href: '/',
   },
   {
     name: 'Tom Yum Soup',
     image: '/banners/banner-vegetable.png',
-    href: '/recipes/papaya',
+    href: '/',
   },
   {
     name: 'Green Curry',
     image: '/banners/banner-herbs.png',
-    href: '/recipes/Shrimp-green-curry',
+    href: '/',
   },
 ];
 

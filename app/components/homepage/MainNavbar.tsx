@@ -10,9 +10,9 @@ export default function MainNavbar() {
   const pathname = usePathname();
 
   const navItems = [
-    { name: 'Thaishops', href: '/shop', icon: <Home size={18} /> },
-    { name: 'Recipes', href: '/recipes', icon: <BookOpen size={18} /> },
-    { name: 'Restaurangs', href: '/partner', icon: <Utensils size={18} /> },
+    { name: 'Thaishops', href: '/', icon: <Home size={18} /> },
+    { name: 'Recipes', href: '/', icon: <BookOpen size={18} /> },
+    { name: 'Restaurangs', href: '/', icon: <Utensils size={18} /> },
   ];
 
   const linkClass = (href: string) =>
@@ -27,7 +27,7 @@ export default function MainNavbar() {
       <div className="hidden md:flex justify-center items-center bg-orange-400 text-gray-900 text-sm py-2 font-medium">
         <p>
           🌿 Are you a Thai shop or restaurant owner? Join STM Marketplace and open your <span className="font-semibold">Partner Store</span> today! &nbsp;
-          <Link href="/partnership" className="underline hover:text-green-400">
+          <Link href="/" className="underline hover:text-green-400">
             Become a Partner
           </Link>
         </p>
@@ -35,7 +35,7 @@ export default function MainNavbar() {
 
       {/* Mobile Collapsed */}
       <div className="md:hidden bg-orange-400 text-gray-900 text-sm font-semibold text-center py-2">
-        <Link href="/partnership" className="block hover:text-green-700">
+        <Link href="/" className="block hover:text-green-700">
           🌿 Become an STM Partner Store →
         </Link>
       </div>
@@ -98,7 +98,7 @@ export default function MainNavbar() {
           {/* Right: Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6 text-sm font-medium">
             {navItems.map((item) => (
-              <Link key={item.href} href={item.href} className={linkClass(item.href)}>
+              <Link key={`${item.name}-${item.href}`} href={item.href} className={linkClass(item.href)}>
                 {item.icon}
                 {item.name}
               </Link>
@@ -133,7 +133,7 @@ export default function MainNavbar() {
         >
           {[...navItems, { name: 'Search', href: '/search', icon: <Search size={18} /> }, { name: 'Login / Register', href: '/login', icon: <User size={18} /> }].map((item) => (
             <Link
-              key={item.href}
+              key={`${item.name}-${item.href}`}
               href={item.href}
               className={linkClass(item.href)}
               onClick={() => setMenuOpen(false)}
