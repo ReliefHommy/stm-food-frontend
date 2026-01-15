@@ -38,7 +38,13 @@ export default async function VendorProducts() {
     image?: string
   }
 
+  type User = {
+    id: string | number
+    email: string
+  }
+
 let products: Product[] = []
+let user: User | null = null
 let fetchError: string | null = null
 
 
@@ -77,7 +83,21 @@ let fetchError: string | null = null
     fetchError = 'Network error fetching products'
   }
 
- 
+  // Fetch user data
+  try {
+    const userRes = await fetch(`${API_URL}/api/me/`, {
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
+      cache: 'no-store',
+    })
+
+    if (userRes.ok) {
+      user = await userRes.json()
+    }
+  } catch (err) {
+    console.error('Error fetching user data', err)
+  }
 
 return (
   <div className="p-6">
@@ -88,7 +108,7 @@ return (
     ) : null}
     <div className="flex justify-between items-center mb-4">
       <h1 className="text-2xl font-bold text-gray-600">
-        In-use Vendor&apos;s Products
+       {user ? `${user.id}:${user.email}'s Products` : 'Products'}
       </h1>
 
       <Link

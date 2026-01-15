@@ -113,7 +113,7 @@ export default function NewProductPage() {
           <label className="block text-sm font-medium mb-1">Title *</label>
           <input
             type="text"
-            className="w-full rounded-md border px-3 py-2 text-white"
+            className="w-full rounded-md border px-3 py-2 text-green-900"
             value={form.title}
             onChange={onChange('title')}
             placeholder="e.g., Mae Ploy Sweet Chili Sauce"
@@ -124,7 +124,7 @@ export default function NewProductPage() {
         <div>
           <label className="block text-sm font-medium mb-1">Description</label>
           <textarea
-            className="w-full text-white rounded-md border px-3 py-2 min-h-[100px]"
+            className="w-full text-green-900 rounded-md border px-3 py-2 min-h-[100px]"
             value={form.description}
             onChange={onChange('description')}
             placeholder="Optional short description"
@@ -138,7 +138,7 @@ export default function NewProductPage() {
               type="number"
               step="0.01"
               min="0"
-              className="w-full rounded-md border px-3 py-2 text-white"
+              className="w-full rounded-md border px-3 py-2 text-green-900"
               value={form.price}
               onChange={onChange('price')}
               required
@@ -150,7 +150,7 @@ export default function NewProductPage() {
             <input
               type="number"
               min="0"
-              className="w-full rounded-md border px-3 py-2 text-white"
+              className="w-full rounded-md border px-3 py-2 text-green-900"
               value={form.stock}
               onChange={onChange('stock')}
               required
@@ -162,7 +162,7 @@ export default function NewProductPage() {
           <label className="block text-sm font-medium mb-1">Image URL *</label>
           <input
             type="url"
-            className="w-full rounded-md border px-3 py-2 text-white"
+            className="w-full rounded-md border px-3 py-2 text-green-900"
             value={form.image}
             onChange={onChange('image')}
             placeholder="https://example.com/image.jpg"
