@@ -15,7 +15,7 @@ export default function ShopPage() {
 
   
 useEffect(() => {
-  fetch('https://stm-food-backend-production.up.railway.app/api/food/products/')
+  fetch('https://api.somtammarket.com/api/food/products/')
     .then(res => res.json())
     .then(data => {
       console.log('Raw API data:', data);

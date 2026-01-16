@@ -23,7 +23,7 @@ import LogoutButton from '../components/LogoutButton'
 export default async function VendorProducts() {
   const cookieStore = await cookies()
   const token = cookieStore.get('access_token')
-  const API_URL = process.env.API_URL || 'https://stm-food-backend-production.up.railway.app';
+  const API_URL = process.env.API_URL || 'https://api.somtammarket.com';
 
 
   if (!token?.value) {
