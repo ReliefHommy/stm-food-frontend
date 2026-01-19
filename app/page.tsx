@@ -1,5 +1,6 @@
 
 import Footer from './components/homepage/Footer';
+import JumbotronCTA from './components/homepage/JumbotronCTA';
 import MainNavbar from './components/homepage/MainNavbar';
 
 
@@ -19,6 +20,7 @@ export default function HomePage() {
     
       <MainNavbar />
 
+<JumbotronCTA />
       <Footer />
       
     </Layout>

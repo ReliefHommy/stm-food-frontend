@@ -1,68 +1,286 @@
 // app/userprofile/page.tsx
 
-import LogoutButton from './components/LogoutButton';
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-import Button from '../components/homepage/Button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
-export default async function UserProfile() {
-   const token = (await cookies()).get('access_token');
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import { Badge } from '@/components/ui/badge'
 
+import {
+  TrendingUp,
+  TrendingDown,
+  Store,
+  Package,
+  ShoppingCart,
+  FileText,
+  ArrowUpRight,
+} from 'lucide-react'
 
-  if (!token?.value) redirect('/login');
-
-
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/api/me/`, {
-    headers: {
-      Authorization: `Bearer ${token.value}`,
-    },
-     cache: 'no-store',
-    // If you need credentials, add: credentials: 'include'
-  });
-
-  if (!res.ok) redirect('/login');
-
-  const user = await res.json();
+// Mock data
+const stats = [
   
+  { title: 'Stores', value: 24, change: 12, changeType: 'increase' as const, icon: Store },
+  { title: 'Products', value: 156, change: -3, changeType: 'decrease' as const, icon: Package },
+  { title: 'Orders', value: 89, change: 8, changeType: 'increase' as const, icon: ShoppingCart },
+  { title: 'Posts', value: 42, change: 15, changeType: 'increase' as const, icon: FileText },
+]
 
+const recentOrders = [
+  { id: 'ORD-001', customer: 'John Doe', status: 'Completed', amount: '$129.99' },
+  { id: 'ORD-002', customer: 'Jane Smith', status: 'Pending', amount: '$79.50' },
+  { id: 'ORD-003', customer: 'Bob Johnson', status: 'Shipped', amount: '$299.99' },
+  { id: 'ORD-004', customer: 'Alice Brown', status: 'Processing', amount: '$49.99' },
+]
+
+const recentItems = [
+  { id: '1', title: 'Wireless Headphones', type: 'Product', image: '/placeholder.jpg' },
+  { id: '2', title: 'Summer Sale Post', type: 'Post', image: '/placeholder.jpg' },
+  { id: '3', title: 'Smart Watch', type: 'Product', image: '/placeholder.jpg' },
+  { id: '4', title: 'New Collection', type: 'Post', image: '/placeholder.jpg' },
+]
+
+function statusBadgeClass(status: string) {
+  // Warm orange theme + calm neutrals (like modern admin templates)
+  switch (status) {
+    case 'Completed':
+      return 'bg-lime-50 text-lime-700 border-lime-200'
+    case 'Pending':
+      return 'bg-lime-50 text-amber-800 border-lime-200'
+    case 'Shipped':
+      return 'bg-sky-50 text-sky-700 border-sky-200'
+    case 'Processing':
+      return 'bg-orange-50 text-lime-800 border-lime-200'
+    default:
+      return 'bg-slate-50 text-slate-700 border-slate-200'
+  }
+}
+
+export default function FoodDashboard() {
   return (
-    <div className="max-w-3xl mx-auto p-6 space-y-6">
-      <h1 className="text-3xl text-gray-600 font-bold">My Account</h1>
-
-      <div className="bg-white border rounded-lg p-4 shadow">
-        <h2 className="text-xl font-semibold mb-2 text-gray-600">👤 Profile</h2>
-        <p>Email: <span className="font-medium text-gray-600">{user.email}</span></p>
-        <p>Account Type: Customer</p>
-             <p className="text-gray-600">User ID: {user.id}</p>
-     <p className="text-gray-600">Partner: {user.is_partner ? 'Yes' : 'No'}</p>
-     <p className="text-gray-600">Customer: {user.is_customer ? 'Yes' : 'No'}</p>
+    <div className="relative">
+      {/* Soft warm background like your STM orange vibe */}
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-lime-200/40 blur-3xl" />
+        <div className="absolute top-40 -left-24 h-72 w-72 rounded-full bg-lime-200/30 blur-3xl" />
+        <div className="absolute bottom-0 right-10 h-80 w-80 rounded-full bg-lime-100/40 blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-b from-lime-50/70 via-white to-white" />
       </div>
 
-      <div className="grid md:grid-cols-2 gap-4">
-        <div className="bg-white border rounded-lg p-4 shadow">
-          <h3 className="text-lg font-semibold mb-1 text-gray-600">📦 My Orders</h3>
-          <p className="text-sm text-muted-foreground mb-2 text-gray-600">View your purchase history.</p>
-          <Button  className="w-full bg-green-700 hover:bg-green-50 text-black hover:text-green-700"  >  <a href="/userprofiles/orders">📦 My Orders</a></Button>
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-sm text-slate-500">Admin • Overview</p>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+              Dashboard
+              <span className="ml-2 align-middle text-sm font-semibold text-lime-700/90">
+                (Foods)
+              </span>
+            </h1>
+            <p className="mt-1 text-sm text-slate-600">
+              A quick look at stores, restaurangs,products, orders, and content performance.
+            </p>
+          </div>
+
+          {/* Simple “filter pills” (no extra component needed) */}
+          <div className="flex flex-wrap items-center gap-2">
+            <button className="rounded-full border border-orange-200 bg-white/70 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm backdrop-blur hover:bg-white">
+              Today
+            </button>
+            <button className="rounded-full border border-orange-200 bg-white/70 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm backdrop-blur hover:bg-white">
+              This week
+            </button>
+            <button className="rounded-full border border-orange-200 bg-lime-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-700">
+              This month
+            </button>
+          </div>
         </div>
 
-        <div className="bg-white border rounded-lg p-4 shadow">
-          <h3 className="text-lg font-semibold mb-1 text-gray-600">❤️ Saved Products</h3>
-          <p className="text-sm text-muted-foreground mb-2">Your wishlist items.</p>
-          <Button  className="w-full bg-green-700 hover:bg-green-50 text-black hover:text-green-700" >Coming Soon</Button>
+        {/* Quick Stat Tiles */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+          {stats.map((stat) => {
+            const Icon = stat.icon
+            const isUp = stat.changeType === 'increase'
+            return (
+              <Card
+                key={stat.title}
+                className="group relative overflow-hidden border-lime-100/70 bg-white/70 shadow-sm backdrop-blur transition hover:shadow-md"
+              >
+                {/* subtle top accent */}
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-lime-500 via-lime-400 to-lime-200 opacity-70" />
+
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                  <CardTitle className="text-sm font-semibold text-slate-700">
+                    {stat.title}
+                  </CardTitle>
+
+                  <div className="flex items-center gap-2">
+                    <div className="grid h-9 w-9 place-items-center rounded-xl border border-lime-100 bg-lime-50 text-lime-700">
+                      <Icon className="h-4 w-4" />
+                    </div>
+                    {isUp ? (
+                      <TrendingUp className="h-4 w-4 text-emerald-600" />
+                    ) : (
+                      <TrendingDown className="h-4 w-4 text-rose-600" />
+                    )}
+                  </div>
+                </CardHeader>
+
+                <CardContent className="space-y-2">
+                  <div className="flex items-end justify-between">
+                    <div className="text-3xl font-bold text-slate-900">{stat.value}</div>
+
+                    <div
+                      className={[
+                        'inline-flex items-center gap-1 rounded-full border px-2 py-1 text-xs font-semibold',
+                        isUp
+                          ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
+                          : 'border-rose-200 bg-rose-50 text-rose-700',
+                      ].join(' ')}
+                    >
+                      <span>{stat.change > 0 ? '+' : ''}{stat.change}%</span>
+                      <ArrowUpRight className="h-3.5 w-3.5 opacity-70" />
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-slate-500">Compared to last month</p>
+
+                  {/* mini progress bar vibe */}
+                  <div className="h-2 w-full rounded-full bg-lime-100/60">
+                    <div
+                      className="h-2 rounded-full bg-gradient-to-r from-lime-600 to-lime-400"
+                      style={{
+                        width: `${Math.min(100, Math.max(8, Math.abs(stat.change) * 6))}%`,
+                      }}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            )
+          })}
         </div>
 
-        <div className="bg-white border rounded-lg p-4 shadow col-span-full">
-          <h3 className="text-lg font-semibold mb-1 text-gray-600">🚪 Become a Vendor</h3>
-          <p className="text-sm text-muted-foreground mb-2">
-            Want to sell your own Thai products? Join our partner program.
-          </p>
-          <Button className="w-full bg-green-700 hover:bg-green-50 text-black hover:text-green-700" >
-            <a href="/partner/subscribe">Become a Vendor</a>
-          </Button>
+        {/* Recent Activity Feed */}
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+          {/* Latest Orders */}
+          <Card className="border-orange-100/70 bg-white/70 shadow-sm backdrop-blur">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle className="text-base font-bold text-slate-900">
+                Latest Orders
+              </CardTitle>
+              <span className="text-xs font-medium text-slate-500">Updated just now</span>
+            </CardHeader>
+
+            <CardContent>
+              <div className="overflow-hidden rounded-xl border border-orange-100 bg-white">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-orange-50/70 hover:bg-orange-50/70">
+                      <TableHead className="text-slate-700">Order ID</TableHead>
+                      <TableHead className="text-slate-700">Customer</TableHead>
+                      <TableHead className="text-slate-700">Status</TableHead>
+                      <TableHead className="text-right text-slate-700">Amount</TableHead>
+                    </TableRow>
+                  </TableHeader>
+
+                  <TableBody>
+                    {recentOrders.map((order) => (
+                      <TableRow key={order.id} className="hover:bg-orange-50/40">
+                        <TableCell className="font-semibold text-slate-900">
+                          {order.id}
+                        </TableCell>
+                        <TableCell className="text-slate-700">{order.customer}</TableCell>
+                        <TableCell>
+                          <Badge
+                            variant="outline"
+                            className={[
+                              'rounded-full px-2.5 py-1 text-xs font-semibold',
+                              statusBadgeClass(order.status),
+                            ].join(' ')}
+                          >
+                            {order.status}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="text-right font-semibold text-slate-900">
+                          {order.amount}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+
+              <div className="mt-4 text-sm text-slate-600">
+                Tip: Click an order to open details (we can wire routing next).
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Latest Products/Posts */}
+          <Card className="border-orange-100/70 bg-white/70 shadow-sm backdrop-blur">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle className="text-base font-bold text-slate-900">
+                Latest Products & Posts
+              </CardTitle>
+              <span className="text-xs font-medium text-slate-500">Last 7 days</span>
+            </CardHeader>
+
+            <CardContent className="space-y-4">
+              <div className="grid gap-3">
+                {recentItems.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex items-center gap-4 rounded-2xl border border-orange-100 bg-white p-3 shadow-sm transition hover:shadow-md"
+                  >
+                    {/* Image / placeholder */}
+                    <div className="relative h-12 w-12 overflow-hidden rounded-xl border border-orange-100 bg-gradient-to-br from-orange-100 to-amber-50">
+                      {/* If you want Next/Image later, we can swap this. Keeping <img> simple for now. */}
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="h-full w-full object-cover opacity-90"
+                      />
+                    </div>
+
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate font-semibold text-slate-900">{item.title}</p>
+                      <div className="mt-1 flex items-center gap-2">
+                        <Badge
+                          variant="outline"
+                          className="rounded-full border-orange-200 bg-orange-50 text-orange-800"
+                        >
+                          {item.type}
+                        </Badge>
+                        <span className="text-xs text-slate-500">• added recently</span>
+                      </div>
+                    </div>
+
+                    <div className="text-xs font-semibold text-orange-700 hover:text-orange-800">
+                      View
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Small “callout” panel like admin templates */}
+              <div className="rounded-2xl border border-orange-200/80 bg-gradient-to-r from-orange-50 to-amber-50 p-4">
+                <p className="text-sm font-semibold text-slate-900">
+                  Next step: make this dashboard feel alive ✨
+                </p>
+                <p className="mt-1 text-sm text-slate-600">
+                  We can add: mini chart card, top sellers, map widget, and “export” actions (like your Pinterest template screenshot).
+                </p>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
   )
-
 }
-

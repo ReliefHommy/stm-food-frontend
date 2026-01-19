@@ -4,7 +4,7 @@ import { NextResponse } from "next/server"
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_BASE ||
-  "https://stm-food-backend-production.up.railway.app"
+  "https://api.somtammarket.com"
 
 const TOKEN_COOKIE = process.env.NEXT_PUBLIC_STM_TOKEN_COOKIE || "access_token"
 
