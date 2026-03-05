@@ -1,7 +1,13 @@
 
+import ComplianceLayer from './components/homepage/ComplianceLayer';
 import Footer from './components/homepage/Footer';
-import JumbotronCTA from './components/homepage/JumbotronCTA';
+import HeroSection from './components/homepage/HeroSection';
 import MainNavbar from './components/homepage/MainNavbar';
+import WhatIsSTM from './components/homepage/WhatIsSTM';
+import MasonryGrid from './components/shop/MasonryRecipe';
+import NewAddProducts from './components/shop/NewAddProducts';
+
+
 
 
 import Layout from './layout';
@@ -20,7 +26,14 @@ export default function HomePage() {
     
       <MainNavbar />
 
-<JumbotronCTA />
+
+  <HeroSection />
+   <WhatIsSTM />
+    <ComplianceLayer />
+      <NewAddProducts />
+  
+    <MasonryGrid cards={[]} />
+  
       <Footer />
       
     </Layout>

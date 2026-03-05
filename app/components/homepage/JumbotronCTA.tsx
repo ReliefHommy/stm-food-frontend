@@ -32,6 +32,79 @@ function JumboSection({
 }: JumboSectionProps) {
   const isOwner = variant === "owner"
 
+  {/* Text / CTA */}
+<div className="flex flex-col">
+  {eyebrow ? (
+    <p className="text-sm font-semibold text-slate-600">{eyebrow}</p>
+  ) : null}
+
+  <h2 className="mt-2 text-4xl font-extrabold tracking-tight text-slate-900 md:text-5xl">
+    {headline}
+  </h2>
+
+  <p className="mt-4 max-w-xl whitespace-pre-line text-lg leading-relaxed text-slate-700">
+    {body}
+  </p>
+
+  {/* CTA row — styled to match your lime hero */}
+  <div className="mt-7 flex flex-wrap items-center gap-4">
+    <Link
+      href={ctaHref}
+      className={[
+        // shape + sizing (like screenshot)
+        "inline-flex items-center justify-center rounded-full",
+        "px-7 py-3.5 text-base font-semibold",
+        // button look
+        "shadow-sm ring-1 ring-inset",
+        "transition duration-150",
+        "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+        isOwner
+          ? [
+              "bg-slate-900 text-white ring-slate-900/10",
+              "hover:bg-slate-800",
+              "focus-visible:ring-slate-900",
+            ].join(" ")
+          : [
+              "bg-lime-600 text-white ring-lime-600/20",
+              "hover:bg-lime-700",
+              "focus-visible:ring-lime-600",
+            ].join(" "),
+      ].join(" ")}
+    >
+      {ctaText}
+      {/* subtle arrow like modern CTAs */}
+      <span className="ml-2 text-white/90" aria-hidden>
+        →
+      </span>
+    </Link>
+
+    {/* Secondary hint like screenshot */}
+    <span className="text-base text-slate-500">
+      {isOwner ? "För butiker i Sverige & EU" : "Sverige (fler länder snart)"}
+    </span>
+  </div>
+
+  {/* Keyword pills (customer section) */}
+  {!isOwner ? (
+    <div className="mt-6 flex flex-wrap gap-3">
+      {["#Thai livsmedel", "#Ingredienser", "#Butiker", "#Recept"].map((t) => (
+        <span
+          key={t}
+          className={[
+            "rounded-full border",
+            "bg-white/70 px-4 py-2",
+            "text-sm font-medium text-slate-600",
+            "shadow-[0_1px_0_rgba(15,23,42,0.03)]",
+          ].join(" ")}
+        >
+          {t}
+        </span>
+      ))}
+    </div>
+  ) : null}
+</div>
+
+
   return (
     <section id={id} className="w-full py-10 md:py-14">
       <div className="mx-auto max-w-6xl px-4">

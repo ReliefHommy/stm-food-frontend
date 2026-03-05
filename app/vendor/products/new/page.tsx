@@ -51,14 +51,16 @@ export default function NewProductPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (saving) return;
+    console.log("[submit] start", { saving });
 
     setError(null);
     const validationError = validate();
     if (validationError) {
       setError(validationError);
       return;
+      
     }
-
+console.log("[submit] validation ok, sending request...");
     setSaving(true);
 
     try {

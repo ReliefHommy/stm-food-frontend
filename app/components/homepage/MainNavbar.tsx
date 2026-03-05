@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Image from "next/image";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ShoppingCart, BookOpen, Utensils, Search, Home, User, ChevronDown } from 'lucide-react';
+import { Menu, X, ShoppingCart,Search, Home, User, ChevronDown } from 'lucide-react';
 
 export default function MainNavbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -11,8 +11,7 @@ export default function MainNavbar() {
 
   const navItems = [
     { name: 'Thaishops', href: '/', icon: <Home size={18} /> },
-    { name: 'Recipes', href: '/', icon: <BookOpen size={18} /> },
-    { name: 'Restaurangs', href: '/', icon: <Utensils size={18} /> },
+
   ];
 
   const linkClass = (href: string) =>

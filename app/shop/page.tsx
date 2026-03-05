@@ -1,10 +1,10 @@
 //app/shop/page.tsx
 'use client';
-import Image from 'next/image';
+
 import Link from 'next/link';
 import { useEffect, useState } from 'react'
-import ShopNavbar from '../components/shop/ShopNavbar';
 import ProductCard from '../components/shop/ProductCard';
+import MainNavbar from '../components/homepage/MainNavbar';
 
 export default function ShopPage() {
 
@@ -38,7 +38,12 @@ useEffect(() => {
 
 
   return (
-      <><ShopNavbar /><br></br><div className="max-w-7xl mx-auto px-6 py-10 bg-white">
+    
+
+      <><MainNavbar />
+   
+      
+      <br></br><div className="max-w-7xl mx-auto px-6 py-10 bg-white">
 
       {/* ✅ Breadcrumbs */}
 
