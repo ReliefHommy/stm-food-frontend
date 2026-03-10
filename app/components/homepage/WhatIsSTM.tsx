@@ -16,12 +16,12 @@ export default function WhatIsSTM({
   title = "What is STM Food",
   subtitle = "A Digital Bridge Between Thai Farms and Europe",
   paragraphs = [
-    "STM Food helps connect Thai farmers,",
-    "small producers,",
-    "and organic cooperatives with buyers in",
-    "Europe.",
+    "STM Food helps connect Thai farmers,small producers,and organic cooperatives with buyers in Europe.",
+    "Instead of anonymous supply chains,",
+    "STM focuses on transparent sourcing, verified farm profiles,",
+    "and sustainable logistics coordination.",
   ],
-  ctaLabel = "CTA",
+  ctaLabel = "Learn How STM Works",
   ctaHref = "#",
   imageSrc = "/what-is-stm.png",
   

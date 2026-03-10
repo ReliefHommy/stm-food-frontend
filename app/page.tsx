@@ -1,11 +1,13 @@
 
+import BuyerSection from './components/homepage/BuyerSection';
+import ClusterShipping from './components/homepage/ClusterShipping';
 import ComplianceLayer from './components/homepage/ComplianceLayer';
+import FarmMapNetwork from './components/homepage/FarmMapNetwork';
 import Footer from './components/homepage/Footer';
 import HeroSection from './components/homepage/HeroSection';
 import MainNavbar from './components/homepage/MainNavbar';
 import WhatIsSTM from './components/homepage/WhatIsSTM';
-import MasonryGrid from './components/shop/MasonryRecipe';
-import NewAddProducts from './components/shop/NewAddProducts';
+
 
 
 
@@ -30,10 +32,10 @@ export default function HomePage() {
   <HeroSection />
    <WhatIsSTM />
     <ComplianceLayer />
-      <NewAddProducts />
+      <FarmMapNetwork />
   
-    <MasonryGrid cards={[]} />
-  
+    <BuyerSection/>
+  <ClusterShipping/>
       <Footer />
       
     </Layout>
