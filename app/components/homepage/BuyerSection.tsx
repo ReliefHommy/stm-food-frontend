@@ -105,7 +105,7 @@ export default function BuyerSection() {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href="/buyers/request-access"
+                href="/login"
                 className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-emerald-900 transition hover:bg-emerald-50"
               >
                 Request Buyer Access

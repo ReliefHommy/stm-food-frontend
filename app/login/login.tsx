@@ -1,5 +1,6 @@
 //app/login/login.tsx
 'use client'
+import Link from "next/link";
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -43,9 +44,18 @@ export default function LoginForm() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <button type="submit" className="inline-flex items-center justify-center rounded-full bg-emerald-700 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2">
         Log In
       </button>
+       <Link
+                href="/"
+                className="inline-flex items-center justify-center rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
+              >
+                Back to STM Food
+              </Link>
+      </div>
+    
     </form>
   )
 }
