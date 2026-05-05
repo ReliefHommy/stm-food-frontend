@@ -23,7 +23,7 @@ export default function ProductForm({
   mode,
   productId,
   initial,
-  onSuccessRedirect = '/admindashboard/products/',
+  onSuccessRedirect = '/stm-saas/products/',
 }: Props) {
   const router = useRouter();
 
@@ -266,7 +266,7 @@ export default function ProductForm({
 
             <button
               type="button"
-              onClick={() => router.push('/admindashboard/products/')}
+              onClick={() => router.push('/stm-saas/products/')}
               className="rounded-md border px-4 py-2 hover:bg-gray-50"
             >
               Cancel
