@@ -1,6 +1,4 @@
-
-
-
+//app/vendors/products/page.tsx
 
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
@@ -22,7 +20,7 @@ import { Trash2 } from "lucide-react"
 //import { Pencil } from "lucide-react"
 
 
-export default async function VendorProducts() {
+export default async function VendorTable() {
   const cookieStore = await cookies()
   const token = cookieStore.get('access_token')
   const API_URL = process.env.API_URL || 'https://api.somtammarket.com';
@@ -114,7 +112,7 @@ return (
       </h1>
 
       <Link
-        href="/admindashboard/products/new"
+        href="/vendor/products/new"
         className="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
       >
         + Add Product
@@ -151,22 +149,19 @@ return (
               <TableCell className="text-right">
                 {product.price}
               </TableCell>
-<TableCell className="text-center space-x-2">
-  <Button asChild variant="ghost" size="sm">
-    <Link href={`/stm-saas/products/${product.slug}/edit`}>Edit</Link>
-  </Button>
-
-  <Button variant="ghost" size="icon">
-    <Trash2 className="h-4 w-4" />
-  </Button>
-</TableCell>
+              <TableCell className="text-center space-x-2">
+                <Button variant="ghost" size="sm">Edit</Button>
+                <Button variant="ghost" size="icon">
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </div>
 
-
+   
   </div>
 );
 }
