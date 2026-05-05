@@ -150,7 +150,9 @@ return (
                 {product.price}
               </TableCell>
               <TableCell className="text-center space-x-2">
-                <Button variant="ghost" size="sm">Edit</Button>
+                <Button asChild variant="ghost" size="sm">
+    <Link href={`/stm-saas/products/${product.slug}/edit`}>Edit</Link>
+  </Button>
                 <Button variant="ghost" size="icon">
                   <Trash2 className="h-4 w-4" />
                 </Button>
