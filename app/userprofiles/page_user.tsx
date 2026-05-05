@@ -3,7 +3,7 @@
 import LogoutButton from './components/LogoutButton';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import Button from '../components/homepage/Button';
+import Button from '../components/Shop/Button';
 
 export default async function UserProfile() {
    const token = (await cookies()).get('access_token');

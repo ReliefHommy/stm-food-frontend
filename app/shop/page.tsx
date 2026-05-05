@@ -3,8 +3,9 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react'
-import ProductCard from '../components/shop/ProductCard';
-import MainNavbar from '../components/homepage/MainNavbar';
+import MainNavbar from '../components/Shop/MainNavbar';
+import ProductCard from '../components/food/ProductCard';
+
 
 export default function ShopPage() {
 
@@ -135,5 +136,3 @@ useEffect(() => {
     </div></>
   );
 }
-
-

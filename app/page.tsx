@@ -1,46 +1,30 @@
 
-import BuyerSection from './components/homepage/BuyerSection';
-import ClusterShipping from './components/homepage/ClusterShipping';
-import ComplianceLayer from './components/homepage/ComplianceLayer';
-import FarmMapNetwork from './components/homepage/FarmMapNetwork';
-import Footer from './components/homepage/Footer';
-import HeroSection from './components/homepage/HeroSection';
-import MainNavbar from './components/homepage/MainNavbar';
-import WhatIsSTM from './components/homepage/WhatIsSTM';
+
+import AboutSection from "./components/saas/landing/AboutSection"
+import AiBussinessTools from "./components/saas/landing/AiBussinessTool"
+import ContactSection from "./components/saas/landing/ContactSection"
+import PricingPlans from "./components/saas/landing/PricingPlans"
+import SaaSFooter from "./components/saas/landing/SaaSFooter"
+import SaaSHero from "./components/saas/landing/SaaSHero"
+import SaaSNavbar from "./components/saas/landing/SaaSNavbar"
+import WhatWeBuild from "./components/saas/landing/whatWeDo"
 
 
 
 
-
-import Layout from './layout';
-//import Button from './components/Button';
-
-export default function HomePage() {
-
+export default function FoodMarketSubscription() {
   return (
-   
-      <Layout>
- 
- 
-
-
-     
     
-      <MainNavbar />
-
-
-  <HeroSection />
-   <WhatIsSTM />
-    <ComplianceLayer />
-      <FarmMapNetwork />
-  
-    <BuyerSection/>
-  <ClusterShipping/>
-      <Footer />
+    <section className="px-4 md:px-8 lg:px-12 py-8">
       
-    </Layout>
-
-  
-      
-  );
+<SaaSNavbar/>
+<SaaSHero/>
+<WhatWeBuild/>
+<AiBussinessTools />
+<PricingPlans />
+    <AboutSection />
+    <ContactSection />
+    <SaaSFooter />
+    </section>
+  )
 }

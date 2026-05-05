@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { useSearchParams } from 'next/navigation'
-import ShopNavbar from '../components/shop/ShopNavbar'
+import ShopNavbar from '../components/food/ShopNavbar'
 
 export default function ThankYouClient() {
   const params = useSearchParams()

@@ -1,5 +1,6 @@
 //app/layout.tsx
 
+
 import { CartProvider } from './context/CartContext';
 import './globals.css';
 
@@ -12,16 +13,18 @@ export const metadata = {
   keywords: ['Somtam Market', 'Food Delivery', 'Thai Food', 'Online Marketplace', 'STM Food'],
 };
 
-import { ReactNode } from 'react';
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
  
-      <body>
-        <CartProvider> 
-          {children}
-        </CartProvider>
+      <body className="flex flex-col min-h-screen">
+               <main className="flex-grow">
+
+</main>
+
+       <CartProvider>{children}</CartProvider>
        
         </body>
     </html>

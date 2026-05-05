@@ -1,7 +1,7 @@
 'use client';
 
 
-import ShopNavbar from '../components/shop/ShopNavbar';
+import ShopNavbar from '../components/food/ShopNavbar';
 //import router from 'next/router';
 import { useCart } from '../context/CartContext';
 import { useRouter } from "next/navigation";

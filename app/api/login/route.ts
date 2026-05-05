@@ -1,42 +1,75 @@
-//app/api/login/route.ts
+// app/api/login/route.ts
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
+const API_URL =
+  process.env.NEXT_PUBLIC_API_BASE?.replace(/\/+$/, '') ||
+  'https://api.somtammarket.com'
+
+async function readJsonSafe(res: Response) {
+  const text = await res.text()
+  try {
+    return text ? JSON.parse(text) : null
+  } catch {
+    return { raw: text }
+  }
+}
+
 export async function POST(req: Request) {
   const { email, password } = await req.json()
- 
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/api/token/`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      email: email,  // ✅ using email as username
-      password: password,
-
-      
-    }
-  ),
-  })
-
-
-
-  const data = await response.json()
-
-  if (!response.ok) {
-    return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
+  if (!API_URL) {
+    return NextResponse.json(
+      { error: 'Server configuration error' },
+      { status: 500 }
+    )
   }
 
+  const response = await fetch(`${API_URL}/api/token/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  })
 
- // ✅ Use NextResponse to set cookie
+  const data = await readJsonSafe(response)
+
+  if (!response.ok) {
+    const message =
+      typeof data === 'object' && data !== null
+        ? (data as any).detail || (data as any).error || 'Invalid credentials'
+        : 'Invalid credentials'
+
+    console.error('Login backend error:', response.status, data)
+    return NextResponse.json(
+      { error: message, backend: data },
+      { status: response.status }
+    )
+  }
+
+  const accessToken = (data as any)?.access
+  if (!accessToken) {
+    console.error('Login response missing access token:', data)
+    return NextResponse.json(
+      { error: 'Login response missing access token', backend: data },
+      { status: 502 }
+    )
+  }
+
   const res = NextResponse.json({ success: true })
 
-  res.cookies.set('access_token', data.access, {
+  res.cookies.set('access_token', accessToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',
     maxAge: 60 * 60,
     path: '/',
-  });  
+  })
 
   return res
 }
