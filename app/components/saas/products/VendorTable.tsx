@@ -31,9 +31,12 @@ export default async function VendorTable() {
   }
 
   type Product = {
+    slug: any
     id: string | number
     title?: string
     description?: string
+    stock_quantity?: number
+    category_name?: string
     price?: number
     image?: string
   }
@@ -106,62 +109,77 @@ return (
         {fetchError}. Please try again later.
       </div>
     ) : null}
-    <div className="flex justify-between items-center mb-4">
-      <h1 className="text-2xl font-bold text-gray-600">
-       {user ? `${user.id}:${user.email}'s Products` : 'Products'}
-      </h1>
 
-      <Link
-        href="/vendor/products/new"
-        className="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
-      >
-        + Add Product
-      </Link>
-    </div>
 
-    <div className="overflow-x-auto">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Img</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Description</TableHead>
-            <TableHead className="text-right">Price</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {products.map((product: any) => (
-            <TableRow key={product.id}>
-              <TableCell>
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className="w-16 h-16 object-cover rounded"
-                />
-              </TableCell>
-              <TableCell>{product.title || "-"}</TableCell>
-              <TableCell>
-                {product.description
-                  ? product.description.slice(0, 60) +
-                    (product.description.length > 60 ? "..." : "")
-                  : "-"}
-              </TableCell>
-              <TableCell className="text-right">
-                {product.price}
-              </TableCell>
-              <TableCell className="text-center space-x-2">
-                <Button asChild variant="ghost" size="sm">
-    <Link href={`/stm-saas/products/${product.slug}/edit`}>Edit</Link>
-  </Button>
-                <Button variant="ghost" size="icon">
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+  
+
+        <><div className="p-6">
+
+
+
+      <div className="overflow-x-auto">
+        
+
+        <table className="w-full text-left border-collapse">
+           <thead>
+             <tr className="bg-neutral-50 border-b border-neutral-200">
+            <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Product (สินค้า)</th>
+            <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Subtitle</th>
+             <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Price</th>
+             <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Stock</th>
+            <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Category</th>
+                <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider text-right">Actions</th>
+            </tr>
+          </thead>
+                    <tbody className="divide-y divide-neutral-100">
+            {products.map((p) => (
+              <tr key={p.id} className="hover:bg-neutral-50 transition-colors group">
+                <td className="px-6 py-4">
+                  <div className="flex items-center gap-3">
+                    <img src={p.image} alt={p.title} className="w-12 h-12 rounded-lg object-cover border border-neutral-200" />
+                    <div>
+                      <p className="font-bold text-neutral-900 text-sm">{p.title}</p>
+                      <p className="text-[11px] text-neutral-400">ID: #{p.id.toString().padStart(4, '0')}</p>
+                      <p className="text-[11px] text-red-600">{p.price}kr/st</p>
+                    </div>
+                  </div>
+                </td>
+                <td className="px-6 py-4">
+                  <span className="text-sm text-neutral-600 bg-neutral-100 px-2 py-1 rounded-md">{p.description
+                  ? p.description.slice(0, 60) +
+                    (p.description.length > 60 ? "..." : "")
+                  : "-"}</span>
+                </td>
+                <td className="px-6 py-4 text-sm font-semibold text-neutral-900">{p.price}</td>
+                <td className="px-6 py-4 text-sm text-neutral-600">{p.stock_quantity} units</td>
+                <td className="px-6 py-4">{p.category_name}</td>
+                <td className="px-6 py-4 text-right">
+                  <div className="flex justify-end gap-2">
+                    <button className="p-2 text-neutral-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all">
+                   
+                      <Link href={`/stm-saas/products/${p.slug}/edit`}>Edit</Link>
+                    </button>
+                    <button className="p-2 text-neutral-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all">
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+
+
+
+        </table>
+
+      </div>
+
+    </div><><div className="p-6">
+
+
+     
+
+    </div></></>
 
    
   </div>
