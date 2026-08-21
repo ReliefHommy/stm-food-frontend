@@ -89,10 +89,9 @@ export default function SubscribeBoxClient({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          store: storeId,
           frequency,
           items: selectedItems.map(({ product, quantity }) => ({
-            product: product.id,
+            product_id: product.id,
             quantity,
           })),
         }),

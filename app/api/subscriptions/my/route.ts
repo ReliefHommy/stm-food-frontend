@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ detail: 'Unauthorized' }, { status: 401 });
   }
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/api/food/subscriptions/my/`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/api/subscriptions/my/`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,

@@ -11,7 +11,7 @@ export async function PATCH(req: NextRequest) {
 
   const body = await req.json();
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/api/food/subscriptions/items/`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/api/subscriptions/my/items/`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

@@ -23,10 +23,8 @@ export default function SubscribeSuccessClient() {
         const res = await fetch('/api/subscriptions/my/', { cache: 'no-store' });
         if (!res.ok) throw new Error();
         const data = await res.json();
-        const subs = Array.isArray(data) ? data : Array.isArray(data?.results) ? data.results : [];
-        const match = subscriptionId
-          ? subs.find((s: any) => String(s.id) === String(subscriptionId))
-          : subs[0];
+        const match =
+          data && (!subscriptionId || String(data.id) === String(subscriptionId)) ? data : null;
         if (!cancelled) setStatus(match ? 'confirmed' : 'unconfirmed');
       } catch {
         if (!cancelled) setStatus('unconfirmed');
