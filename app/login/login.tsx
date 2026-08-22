@@ -55,7 +55,12 @@ export default function LoginForm() {
                 Back to STM Food
               </Link>
       </div>
-    
+      <p className="text-sm text-slate-600">
+        Don&apos;t have an account?{' '}
+        <Link href="/register" className="font-semibold text-emerald-700 hover:underline">
+          Sign up
+        </Link>
+      </p>
     </form>
   )
 }
