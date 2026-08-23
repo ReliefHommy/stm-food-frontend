@@ -61,7 +61,23 @@ export async function POST(req: Request) {
     )
   }
 
-  const res = NextResponse.json({ success: true })
+  // Fetch the profile so the client can route customers to /shop and
+  // vendor/staff accounts to /stm-saas, instead of sending everyone to the
+  // vendor dashboard.
+  let isCustomer = false
+  try {
+    const profileResponse = await fetch(`${API_URL}/api/me/`, {
+      headers: { Authorization: `Bearer ${accessToken}`, Accept: 'application/json' },
+    })
+    if (profileResponse.ok) {
+      const profileData = await readJsonSafe(profileResponse)
+      isCustomer = Boolean((profileData as any)?.is_customer)
+    }
+  } catch (err) {
+    console.error('Failed to fetch profile after login:', err)
+  }
+
+  const res = NextResponse.json({ success: true, isCustomer })
 
   res.cookies.set('access_token', accessToken, {
     httpOnly: true,

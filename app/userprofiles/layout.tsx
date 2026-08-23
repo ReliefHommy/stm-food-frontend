@@ -7,6 +7,7 @@ import Link from 'next/link'
 const items = [
   { href: '/userprofiles', label: 'Profile', icon: '👤' },
   { href: '/userprofiles/orders',  label: 'My Orders', icon: '📦' },
+  { href: '/userprofiles/subscription', label: 'My Subscription', icon: '🔁' },
   { href: '/userprofiles/Wishlists',    label: 'Wishlist',   icon: '❤️' },
    { href: '/partner/subscribe',    label: ' Sell in STM',   icon: '🚪' },
   { href: '/userprofiles/settings',  label: 'Settings', icon: '⚙️' },
