@@ -1,9 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { isSessionExpired, SESSION_EXPIRED_MESSAGE } from '@/lib/session';
 
 export default function SubscribeSuccessClient() {
+  const router = useRouter();
   const params = useSearchParams();
   const subscriptionId = params.get('subscription');
   const redirectStatus = params.get('redirect_status');
@@ -21,7 +23,14 @@ export default function SubscribeSuccessClient() {
     (async () => {
       try {
         const res = await fetch('/api/subscriptions/my/', { cache: 'no-store' });
-        if (!res.ok) throw new Error();
+        if (!res.ok) {
+          const data = await res.json().catch(() => null);
+          if (res.status === 401 && isSessionExpired(data) && !cancelled) {
+            router.push(`/login?message=${encodeURIComponent(SESSION_EXPIRED_MESSAGE)}`);
+            return;
+          }
+          throw new Error();
+        }
         const data = await res.json();
         const match =
           data && (!subscriptionId || String(data.id) === String(subscriptionId)) ? data : null;
@@ -34,7 +43,7 @@ export default function SubscribeSuccessClient() {
     return () => {
       cancelled = true;
     };
-  }, [subscriptionId, redirectStatus]);
+  }, [subscriptionId, redirectStatus, router]);
 
   return (
     <main className="min-h-[70vh] flex items-center justify-center px-4 py-10">

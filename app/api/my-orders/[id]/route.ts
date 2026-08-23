@@ -1,6 +1,7 @@
 // app/api/my-orders/[id]/route.ts
 import { NextResponse } from "next/server"
 import { cookies } from "next/headers"
+import { SESSION_EXPIRED_CODE } from "@/lib/session"
 
 const API_BASE =
   process.env.NEXT_PUBLIC_API_BASE ??
@@ -15,7 +16,7 @@ export async function GET(
   const { id } = await params
   const token = (await cookies()).get(TOKEN_COOKIE)?.value
   if (!token) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    return NextResponse.json({ error: SESSION_EXPIRED_CODE }, { status: 401 })
   }
 
   const res = await fetch(`${API_BASE}/api/my-orders/${id}/`, {
@@ -26,6 +27,10 @@ export async function GET(
     },
     cache: "no-store",
   })
+
+  if (res.status === 401) {
+    return NextResponse.json({ error: SESSION_EXPIRED_CODE }, { status: 401 })
+  }
 
   const text = await res.text()
   let data: any = null

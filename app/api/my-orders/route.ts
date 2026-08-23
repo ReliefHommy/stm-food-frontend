@@ -1,11 +1,12 @@
 // app/api/my-orders/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+import { SESSION_EXPIRED_CODE } from '@/lib/session';
 
 export async function GET(req: NextRequest) {
   const token = req.cookies.get('access_token')?.value;
 
   if (!token) {
-    return NextResponse.json({ detail: 'Unauthorized' }, { status: 401 });
+    return NextResponse.json({ error: SESSION_EXPIRED_CODE }, { status: 401 });
   }
 
   const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE}/api/food/my-orders/`;
@@ -17,6 +18,10 @@ export async function GET(req: NextRequest) {
         Authorization: `Bearer ${token}`,
       },
     });
+
+    if (res.status === 401) {
+      return NextResponse.json({ error: SESSION_EXPIRED_CODE }, { status: 401 });
+    }
 
     const contentType = res.headers.get('content-type') || '';
 
