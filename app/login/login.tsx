@@ -25,8 +25,8 @@ export default function LoginForm() {
     })
 
     if (res.ok) {
-    router.push('/stm-saas') 
-      //router.push('/vendor') 
+      const data = await res.json()
+      router.push(data.isCustomer ? '/shop' : '/stm-saas')
     } else {
       const data = await res.json()
       setError(data.error || 'Login failed')
