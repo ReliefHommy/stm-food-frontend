@@ -1,6 +1,7 @@
 // app/api/me/route.ts
 import { cookies } from "next/headers"
 import { NextResponse } from "next/server"
+import { SESSION_EXPIRED_CODE } from "@/lib/session"
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_BASE ||
@@ -21,7 +22,7 @@ export async function GET() {
   const token = (await cookies()).get(TOKEN_COOKIE)?.value
 
   if (!token) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    return NextResponse.json({ error: SESSION_EXPIRED_CODE }, { status: 401 })
   }
 
   try {
@@ -33,6 +34,10 @@ export async function GET() {
       },
       cache: "no-store",
     })
+
+    if (res.status === 401) {
+      return NextResponse.json({ error: SESSION_EXPIRED_CODE }, { status: 401 })
+    }
 
     const data = await readJsonSafe(res)
 

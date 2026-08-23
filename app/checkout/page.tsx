@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useCart } from '../context/CartContext';
+import { isSessionExpired, SESSION_EXPIRED_MESSAGE } from '@/lib/session';
 
 
 export default function CheckoutPage() {
@@ -67,7 +68,10 @@ items: cart.map(item => ({
     console.log("✅ Order API response:", data);
 
    if (!res.ok) {
-     
+      if (res.status === 401 && isSessionExpired(data)) {
+        router.push(`/login?message=${encodeURIComponent(SESSION_EXPIRED_MESSAGE)}`);
+        return;
+      }
       console.error('Error details:', data);
       throw new Error('Failed to place order.You may need to Login!');
     }

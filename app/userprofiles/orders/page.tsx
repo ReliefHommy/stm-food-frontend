@@ -2,7 +2,9 @@
 'use client'
 
 import { ReactNode, useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { CalendarCheck, Package, Truck, ChevronDown, ChevronUp } from 'lucide-react'
+import { isSessionExpired, SESSION_EXPIRED_MESSAGE } from '@/lib/session'
 
 
 interface Order {
@@ -21,6 +23,7 @@ interface Order {
 }
 
 export default function UserOrdersPage() {
+  const router = useRouter()
   const [orders, setOrders] = useState<Order[]>([])
   const [expandedOrderId, setExpandedOrderId] = useState<number | null>(null)
   const [isOpen, setIsOpen] = useState(false); // ✅ Add this line
@@ -36,12 +39,17 @@ export default function UserOrdersPage() {
         const data = await res.json()
         setOrders(data)
       } else {
+        const data = await res.json().catch(() => null)
+        if (res.status === 401 && isSessionExpired(data)) {
+          router.push(`/login?message=${encodeURIComponent(SESSION_EXPIRED_MESSAGE)}`)
+          return
+        }
         console.error('Failed to fetch orders')
       }
     }
 
     fetchOrders()
-  }, [])
+  }, [router])
 
   const toggleOrder = (id: number) => {
     setExpandedOrderId(expandedOrderId === id ? null : id)

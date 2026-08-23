@@ -2,7 +2,7 @@
 'use client'
 import Link from "next/link";
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 export default function LoginForm() {
@@ -10,6 +10,12 @@ export default function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [notice, setNotice] = useState('')
+
+  useEffect(() => {
+    const message = new URLSearchParams(window.location.search).get('message')
+    if (message) setNotice(message)
+  }, [])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -29,6 +35,7 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleLogin} className="space-y-4">
+      {notice && <p className="text-amber-600">{notice}</p>}
       {error && <p className="text-red-500">{error}</p>}
       <input
         type="email"

@@ -1,7 +1,9 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { isSessionExpired, SESSION_EXPIRED_MESSAGE } from '@/lib/session';
 import {
   Elements,
   PaymentElement,
@@ -74,6 +76,7 @@ export default function SubscribeBoxClient({
   storeName: string;
   initialProducts: SubscriptionProduct[];
 }) {
+  const router = useRouter();
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [frequency, setFrequency] = useState<Frequency>('weekly');
   const [submitting, setSubmitting] = useState(false);
@@ -141,6 +144,10 @@ export default function SubscribeBoxClient({
       const data = await res.json();
 
       if (!res.ok) {
+        if (res.status === 401 && isSessionExpired(data)) {
+          router.push(`/login?message=${encodeURIComponent(SESSION_EXPIRED_MESSAGE)}`);
+          return;
+        }
         // First-time subscriber with no delivery address on file yet --
         // reveal the address form instead of erroring out, and let them
         // resubmit with it filled in.
