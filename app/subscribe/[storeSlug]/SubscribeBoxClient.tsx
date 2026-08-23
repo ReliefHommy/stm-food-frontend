@@ -27,6 +27,34 @@ const FREQUENCY_OPTIONS: { value: Frequency; label: string }[] = [
   { value: 'monthly', label: 'Monthly' },
 ];
 
+type DeliveryAddress = {
+  full_name: string;
+  phone: string;
+  shipping_address: string;
+  city: string;
+  postal_code: string;
+  country: string;
+};
+
+const EMPTY_ADDRESS: DeliveryAddress = {
+  full_name: '',
+  phone: '',
+  shipping_address: '',
+  city: '',
+  postal_code: '',
+  country: 'SE',
+};
+
+// Stripe Tax needs a real ISO 3166-1 alpha-2 code, not free text (see PR #12's
+// stale-shipping-address bug) -- a dropdown keeps that guaranteed rather than
+// trusting a text input.
+const COUNTRY_OPTIONS: { value: string; label: string }[] = [
+  { value: 'SE', label: 'Sweden' },
+  { value: 'NO', label: 'Norway' },
+  { value: 'DK', label: 'Denmark' },
+  { value: 'FI', label: 'Finland' },
+];
+
 type StartResponse = {
   client_secret: string;
   type: 'payment' | 'setup';
@@ -51,6 +79,14 @@ export default function SubscribeBoxClient({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [startData, setStartData] = useState<StartResponse | null>(null);
+  const [needsAddress, setNeedsAddress] = useState(false);
+  const [address, setAddress] = useState<DeliveryAddress>(EMPTY_ADDRESS);
+
+  const isAddressComplete = Object.values(address).every((v) => v.trim() !== '');
+
+  function setAddressField(field: keyof DeliveryAddress, value: string) {
+    setAddress((prev) => ({ ...prev, [field]: value }));
+  }
 
   const eligibleProducts = useMemo(
     () => initialProducts.filter((p) => p.is_subscription_eligible !== false),
@@ -80,6 +116,10 @@ export default function SubscribeBoxClient({
       setError('Pick at least one product for your box.');
       return;
     }
+    if (needsAddress && !isAddressComplete) {
+      setError('Please fill in your delivery address.');
+      return;
+    }
 
     setSubmitting(true);
     setError('');
@@ -94,12 +134,21 @@ export default function SubscribeBoxClient({
             product_id: product.id,
             quantity,
           })),
+          ...(needsAddress ? { delivery_address: address } : {}),
         }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
+        // First-time subscriber with no delivery address on file yet --
+        // reveal the address form instead of erroring out, and let them
+        // resubmit with it filled in.
+        if (data?.code === 'delivery_address_required') {
+          setNeedsAddress(true);
+          setError('Please add your delivery address to continue.');
+          return;
+        }
         throw new Error(data?.detail || data?.error || 'Could not start subscription.');
       }
 
@@ -202,6 +251,66 @@ export default function SubscribeBoxClient({
             </div>
           </div>
 
+          {needsAddress && (
+            <div className="space-y-3 border-t pt-4">
+              <label className="block text-sm font-medium">Delivery address</label>
+              <input
+                name="full_name"
+                placeholder="Full name"
+                value={address.full_name}
+                onChange={(e) => setAddressField('full_name', e.target.value)}
+                required
+                className="w-full p-2 border rounded"
+              />
+              <input
+                name="phone"
+                placeholder="Phone"
+                value={address.phone}
+                onChange={(e) => setAddressField('phone', e.target.value)}
+                required
+                className="w-full p-2 border rounded"
+              />
+              <input
+                name="shipping_address"
+                placeholder="Street address"
+                value={address.shipping_address}
+                onChange={(e) => setAddressField('shipping_address', e.target.value)}
+                required
+                className="w-full p-2 border rounded"
+              />
+              <div className="flex gap-3">
+                <input
+                  name="city"
+                  placeholder="City"
+                  value={address.city}
+                  onChange={(e) => setAddressField('city', e.target.value)}
+                  required
+                  className="w-1/2 p-2 border rounded"
+                />
+                <input
+                  name="postal_code"
+                  placeholder="Postal code"
+                  value={address.postal_code}
+                  onChange={(e) => setAddressField('postal_code', e.target.value)}
+                  required
+                  className="w-1/2 p-2 border rounded"
+                />
+              </div>
+              <select
+                name="country"
+                value={address.country}
+                onChange={(e) => setAddressField('country', e.target.value)}
+                className="w-full p-2 border rounded"
+              >
+                {COUNTRY_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
           <div className="border-t pt-4">
             <div className="flex justify-between font-semibold text-lg">
               <span>Box total</span>
@@ -217,7 +326,11 @@ export default function SubscribeBoxClient({
             disabled={submitting || selectedItems.length === 0}
             className="w-full bg-green-600 text-white py-3 rounded hover:bg-green-700 disabled:opacity-60"
           >
-            {submitting ? 'Setting up…' : 'Continue to payment'}
+            {submitting
+              ? 'Setting up…'
+              : needsAddress
+              ? 'Save address and continue to payment'
+              : 'Continue to payment'}
           </button>
         </form>
       ) : (
