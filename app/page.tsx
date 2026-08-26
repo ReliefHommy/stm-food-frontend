@@ -1,30 +1,45 @@
+// app/page.tsx
+import { Bitter, Noto_Sans_Thai, Work_Sans } from 'next/font/google';
 
+import LandingNav from './components/landing/LandingNav';
+import Hero from './components/landing/Hero';
+import ValueProps from './components/landing/ValueProps';
+import HowItWorks from './components/landing/HowItWorks';
+import Differentiator from './components/landing/Differentiator';
+import LandingFooter from './components/landing/LandingFooter';
 
-import AboutSection from "./components/saas/landing/AboutSection"
-import AiBussinessTools from "./components/saas/landing/AiBussinessTool"
-import ContactSection from "./components/saas/landing/ContactSection"
-import PricingPlans from "./components/saas/landing/PricingPlans"
-import SaaSFooter from "./components/saas/landing/SaaSFooter"
-import SaaSHero from "./components/saas/landing/SaaSHero"
-import SaaSNavbar from "./components/saas/landing/SaaSNavbar"
-import WhatWeBuild from "./components/saas/landing/whatWeDo"
+const bitter = Bitter({
+  subsets: ['latin'],
+  weight: ['600', '700'],
+  variable: '--font-bitter',
+  display: 'swap',
+});
 
+const notoSansThai = Noto_Sans_Thai({
+  subsets: ['thai', 'latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-noto-thai',
+  display: 'swap',
+});
 
+const workSans = Work_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-work-sans',
+  display: 'swap',
+});
 
-
-export default function FoodMarketSubscription() {
+export default function LandingPage() {
   return (
-    
-    <section className="px-4 md:px-8 lg:px-12 py-8">
-      
-<SaaSNavbar/>
-<SaaSHero/>
-<WhatWeBuild/>
-<AiBussinessTools />
-<PricingPlans />
-    <AboutSection />
-    <ContactSection />
-    <SaaSFooter />
-    </section>
-  )
+    <div
+      className={`${bitter.variable} ${notoSansThai.variable} ${workSans.variable} font-body bg-cream text-charcoal`}
+    >
+      <LandingNav />
+      <Hero />
+      <ValueProps />
+      <HowItWorks />
+      <Differentiator />
+      <LandingFooter />
+    </div>
+  );
 }
