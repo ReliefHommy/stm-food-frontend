@@ -11,7 +11,6 @@ const API_URL = (process.env.NEXT_PUBLIC_API_BASE || 'https://api.somtammarket.c
 type StudioPost = {
   id: number;
   title: string;
-  excerpt?: string;
   image_url?: string;
 };
 
@@ -70,11 +69,6 @@ export default function ExploreGrid() {
           )}
           <div className="p-4">
             <h3 className="font-headline text-base font-semibold text-charcoal leading-snug">{post.title}</h3>
-            {post.excerpt && (
-              <p className="font-body text-sm text-charcoal-soft mt-2" style={{ lineHeight: 1.6 }}>
-                {post.excerpt}
-              </p>
-            )}
             <span className="inline-block font-body text-xs font-medium text-charcoal-soft bg-hairline/40 rounded-full px-3 py-1 mt-3">
               เรื่องราว
             </span>
