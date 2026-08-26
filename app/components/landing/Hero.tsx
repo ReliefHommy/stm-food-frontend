@@ -22,10 +22,10 @@ export default function Hero() {
 
         <div className="flex flex-col sm:flex-row gap-3 mt-8">
           <Link
-            href="/shop"
+            href="/explore"
             className="font-body text-sm font-medium bg-terracotta hover:bg-terracotta-hover text-white px-6 py-3 rounded-btn text-center transition-colors"
           >
-            ช้อปในตลาด
+            Explore the market
           </Link>
           <Link
             href="/shop"

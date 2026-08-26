@@ -3,9 +3,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { LogoMark, MenuIcon, CloseIcon } from './icons';
 
 const navLinks = [
+  { href: '/explore', label: 'สำรวจ' },
   { href: '/shop', label: 'ร้านค้า' },
   { href: '/shop', label: 'สมัครกล่อง' },
   { href: '/login', label: 'เข้าสู่ระบบ' },
@@ -13,6 +15,7 @@ const navLinks = [
 
 export default function LandingNav() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur border-b border-hairline">
@@ -23,15 +26,21 @@ export default function LandingNav() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className="font-body text-sm text-charcoal-soft hover:text-charcoal transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const active = pathname === link.href;
+            return (
+              <Link
+                key={link.label}
+                href={link.href}
+                aria-current={active ? 'page' : undefined}
+                className={`font-body text-sm transition-colors ${
+                  active ? 'text-terracotta font-medium' : 'text-charcoal-soft hover:text-charcoal'
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
           <Link
             href="/shop"
             className="font-body text-sm font-medium bg-terracotta hover:bg-terracotta-hover text-white px-5 py-2.5 rounded-btn transition-colors"
@@ -52,16 +61,20 @@ export default function LandingNav() {
 
       {open && (
         <div className="md:hidden border-t border-hairline bg-cream px-4 pb-5 pt-2 flex flex-col gap-4">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="font-body text-sm text-charcoal-soft"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const active = pathname === link.href;
+            return (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                aria-current={active ? 'page' : undefined}
+                className={`font-body text-sm ${active ? 'text-terracotta font-medium' : 'text-charcoal-soft'}`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
           <Link
             href="/shop"
             onClick={() => setOpen(false)}
