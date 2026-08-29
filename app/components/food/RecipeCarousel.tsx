@@ -7,17 +7,17 @@ import Image from 'next/image';
 const recipes = [
   {
     name: 'Thai Fruit',
-    image: '/banners/banner-fruits.png',
+    image: '/banners/value_image-1.jpg',
     href: '/',
   },
   {
     name: 'Tom Yum Soup',
-    image: '/banners/banner-vegetable.png',
+    image: '/banners/value_image-2.jpg',
     href: '/',
   },
   {
     name: 'Green Curry',
-    image: '/banners/banner-herbs.png',
+    image: '/banners/value_image-3.jpg',
     href: '/',
   },
 ];

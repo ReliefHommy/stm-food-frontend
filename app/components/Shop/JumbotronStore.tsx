@@ -198,7 +198,7 @@ export default function JumbotronStore() {
       {/* 2) Grocery owner section */}
       <JumboSection
         id="for-butiker"
-        imageSrc="/banners/din_jumbo.png" // <- put din_jumbo.png in /public/images/
+        imageSrc="/banners/value_image-2.jpg"
         imageAlt="För Thai grocery owners - syns online med innehåll"
         eyebrow="För butikägare"
         headline="Din Thai Livsmedel App"

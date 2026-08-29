@@ -97,15 +97,15 @@ let fetchError: string | null = null
       <section className="bg-white border-b border-neutral-200">
         <div className="relative h-48 w-full bg-blue-600">
           <img 
-            src="/hero_stm_food.png"
-            className="w-full h-full object-cover opacity-80" 
+            src="/banners/hero_stm_food.png"
+            className="w-full h-full object-cover opacity-80"
             alt="Store Cover"
           />
         </div>
         <div className="max-w-4xl mx-auto px-4 -mt-12 relative pb-6 text-center md:text-left">
           <div className="inline-block p-1 bg-white rounded-2xl shadow-lg mb-4">
-            <img 
-              src="/banners/banner-fruits.png"
+            <img
+              src="/banners/value_image-1.jpg"
               className="w-24 h-24 rounded-xl object-cover" 
               alt="Logo"
             />
