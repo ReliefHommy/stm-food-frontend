@@ -83,7 +83,7 @@ export default function HeroSection() {
             <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
               <div className="absolute inset-0 bg-gradient-to-tr from-emerald-50/40 via-transparent to-amber-50/40" />
               <Image
-                src="/hero_stm_food.png"
+                src="/banners/hero_stm_food.png"
                 alt="STM Food product packaging — Thai farm products for the EU market"
                 width={1200}
                 height={1200}

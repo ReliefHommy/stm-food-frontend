@@ -195,7 +195,7 @@ export default function JumbotronCustomer() {
       {/* 1) Customer section */}
       <JumboSection
         id="thai-livsmedel"
-        imageSrc="/banners/thai_jumbo.png" // <- put thai_jumbo.png in /public/images/
+        imageSrc="/banners/value_image-1.jpg"
         imageAlt="Thai livsmedel - upptäck ingredienser och butiker"
         eyebrow="För kunder"
         headline="Thai livsmedel nära dig"
@@ -208,7 +208,7 @@ export default function JumbotronCustomer() {
       {/* 2) Grocery owner section */}
       <JumboSection
         id="for-butiker"
-        imageSrc="/banners/din_jumbo.png" // <- put din_jumbo.png in /public/images/
+        imageSrc="/banners/value_image-2.jpg"
         imageAlt="För Thai grocery owners - syns online med innehåll"
         eyebrow="För butikägare"
         headline="Din Thai Livsmedel App"

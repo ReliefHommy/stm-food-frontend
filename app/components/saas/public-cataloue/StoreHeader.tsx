@@ -9,7 +9,7 @@ export default function StoreHeader() {
    
           <div>
            <img
-          src="/hero_stm_food.png"
+          src="/banners/hero_stm_food.png"
           alt="Shop Banner"
           width={1200}
           height={300}

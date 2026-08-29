@@ -1,6 +1,6 @@
 // app/components/landing/Hero.tsx
+import Image from 'next/image';
 import Link from 'next/link';
-import { HeroIllustration } from './icons';
 
 export default function Hero() {
   return (
@@ -41,7 +41,14 @@ export default function Hero() {
       </div>
 
       <div className="w-full max-w-md mx-auto lg:max-w-none">
-        <HeroIllustration className="w-full h-auto" />
+        <Image
+          src="/banners/hero_stm_food.png"
+          alt="Real Thai flavors from STM Food"
+          width={840}
+          height={760}
+          priority
+          className="w-full h-auto rounded-2xl"
+        />
       </div>
     </section>
   );

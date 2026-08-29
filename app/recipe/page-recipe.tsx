@@ -19,7 +19,7 @@ export default function RecipePage() {
       {/* Banner */}
       <div className="mb-8 rounded-lg overflow-hidden shadow">
         <Image
-          src="/banners/shop-banner.jpg"
+          src="/banners/value_image-2.jpg"
           alt="Shop Banner"
            width={1200}
           height={300}

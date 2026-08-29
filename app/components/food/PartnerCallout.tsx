@@ -28,7 +28,7 @@ export default function PartnerCallout() {
         {/* Illustration */}
         <div className="md:w-1/2">
           <Image
-            src="/partner-callout.png"
+            src="/banners/value_image-3.jpg"
             alt="Partner Illustration"
             width={500}
             height={400}
