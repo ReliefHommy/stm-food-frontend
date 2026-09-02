@@ -4,22 +4,10 @@ import Image from 'next/image';
 const API_URL = (process.env.NEXT_PUBLIC_API_BASE || 'https://api.somtammarket.com').replace(/\/+$/, '');
 const FALLBACK_IMAGE = '/category/fresh-product.jpeg';
 
-// The categories API has no Thai-name field yet, so map it locally by slug.
-// TODO(nok): confirm these translations, and drop this once the backend adds thai_name.
-const CATEGORY_TH_NAMES: Record<string, string> = {
-  beverages: 'เครื่องดื่ม',
-  'dessert-snacks': 'ขนมและของว่าง',
-  'imported-thai': 'ของนำเข้าจากไทย',
-  'sauces-curry-paste': 'เครื่องแกงและซอส',
-  bakery: 'ขนมปังและเบเกอรี่',
-  'rice-grains': 'ข้าวและธัญพืช',
-  vegetables: 'ผักสด',
-  fruits: 'ผลไม้',
-};
-
 type Category = {
   id: number;
   name: string;
+  thai_name?: string;
   slug: string;
   image?: string;
 };
@@ -65,7 +53,7 @@ export default async function ShopCategoryGrid() {
             </div>
             <div className="px-3 pt-4 pb-4">
               <p className="font-body text-sm md:text-base font-medium text-charcoal">
-                {CATEGORY_TH_NAMES[category.slug] ?? category.name}
+                {category.thai_name || category.name}
               </p>
               <p className="font-body text-xs text-charcoal-soft">{category.name}</p>
             </div>
