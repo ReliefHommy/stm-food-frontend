@@ -2,6 +2,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import Masonry from 'react-masonry-css';
 
 const API_URL = (process.env.NEXT_PUBLIC_API_BASE || 'https://api.somtammarket.com').replace(/\/+$/, '');
@@ -9,6 +10,7 @@ const API_URL = (process.env.NEXT_PUBLIC_API_BASE || 'https://api.somtammarket.c
 type StudioPost = {
   id: number;
   title: string;
+  slug?: string;
   image_url?: string;
 };
 
@@ -61,13 +63,23 @@ export default function ExploreGrid() {
     <Masonry breakpointCols={MASONRY_BREAKPOINTS} className="flex gap-4 md:gap-5" columnClassName="flex flex-col gap-4 md:gap-5">
       {posts.map((post) => (
         <article key={post.id} className="bg-cream-card border border-hairline rounded-card overflow-hidden">
-          {post.image_url && (
-            // eslint-disable-next-line @next/next/no-img-element -- intrinsic aspect ratio drives the masonry packing
-            <img src={post.image_url} alt={post.title} loading="lazy" className="w-full h-auto block" />
-          )}
-          <div className="p-4">
-            <h3 className="font-headline text-base font-semibold text-charcoal leading-snug">{post.title}</h3>
-          </div>
+          <Link
+            href={`/explore/${post.slug || post.id}`}
+            className="group block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta"
+          >
+            {post.image_url && (
+              // eslint-disable-next-line @next/next/no-img-element -- intrinsic aspect ratio drives the masonry packing
+              <img
+                src={post.image_url}
+                alt={post.title}
+                loading="lazy"
+                className="w-full h-auto block transition-opacity group-hover:opacity-90"
+              />
+            )}
+            <div className="p-4">
+              <h3 className="font-headline text-base font-semibold text-charcoal leading-snug">{post.title}</h3>
+            </div>
+          </Link>
         </article>
       ))}
     </Masonry>
