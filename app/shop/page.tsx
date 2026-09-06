@@ -5,7 +5,7 @@ import LandingNav from '../components/landing/LandingNav';
 import LandingFooter from '../components/landing/LandingFooter';
 import ShopHero from '../components/shop-landing/ShopHero';
 import ShopCategoryGrid from '../components/shop-landing/ShopCategoryGrid';
-import ShopComboPromo from '../components/shop-landing/ShopComboPromo';
+import ShopMealKits from '../components/shop-landing/ShopMealKits';
 import ShopDesserts from '../components/shop-landing/ShopDesserts';
 import ShopQuickLogin from '../components/shop-landing/ShopQuickLogin';
 
@@ -38,7 +38,7 @@ export default function ShopPage() {
       <LandingNav />
       <ShopHero />
       <ShopCategoryGrid />
-      <ShopComboPromo />
+      <ShopMealKits />
       <ShopDesserts />
       <ShopQuickLogin />
       <LandingFooter />
