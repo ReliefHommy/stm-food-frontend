@@ -6,7 +6,6 @@ import LandingFooter from '../components/landing/LandingFooter';
 import ShopHero from '../components/shop-landing/ShopHero';
 import ShopCategoryGrid from '../components/shop-landing/ShopCategoryGrid';
 import ShopMealKits from '../components/shop-landing/ShopMealKits';
-import ShopDesserts from '../components/shop-landing/ShopDesserts';
 import ShopQuickLogin from '../components/shop-landing/ShopQuickLogin';
 
 const bitter = Bitter({
@@ -39,7 +38,6 @@ export default function ShopPage() {
       <ShopHero />
       <ShopCategoryGrid />
       <ShopMealKits />
-      <ShopDesserts />
       <ShopQuickLogin />
       <LandingFooter />
     </div>
