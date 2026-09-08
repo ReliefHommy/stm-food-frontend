@@ -65,11 +65,9 @@ export default async function PartnerListPage() {
             ยังไม่มีพาร์ทเนอร์ในขณะนี้
           </p>
         ) : (
-          <section className="columns-1 gap-4 sm:columns-2 lg:columns-3">
+          <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {stores.map((s) => (
-              <div key={s.slug} className="mb-4">
-                <PartnerCard store={s} />
-              </div>
+              <PartnerCard key={s.slug} store={s} />
             ))}
           </section>
         )}
