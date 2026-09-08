@@ -1,10 +1,11 @@
 // app/lib/partners.ts
-// Fetch helper for Thefood's blog endpoint (api/food/blog/), used by the
-// public Partners pages (app/partners). This is a different Django app than
-// Studio's stm-post endpoint (see app/lib/studio.ts) — do not assume the
+// Fetch helpers for the public Partners pages (app/partners). The list page
+// uses the store endpoint (api/food/stores/); the detail route still uses
+// Thefood's blog endpoint (api/food/blog/). Both are a different Django app
+// than Studio's stm-post endpoint (see app/lib/studio.ts) — do not assume the
 // field names match; they were confirmed separately against the live API.
 
-export type PartnerAuthor = {
+export type PartnerStore = {
   id: number;
   slug: string;
   name: string;
@@ -18,7 +19,7 @@ export type PartnerPost = {
   title: string;
   slug: string;
   content: string;
-  author: PartnerAuthor;
+  author: PartnerStore;
   created_at: string;
   featured_image: string | null;
   related_recipe: unknown | null;
@@ -27,6 +28,13 @@ export type PartnerPost = {
 
 const API_URL = (process.env.NEXT_PUBLIC_API_BASE || 'https://api.somtammarket.com').replace(/\/+$/, '');
 const REVALIDATE = 300;
+
+export async function getPartnerStores(): Promise<PartnerStore[]> {
+  const res = await fetch(`${API_URL}/api/food/stores/`, { next: { revalidate: REVALIDATE } });
+  if (!res.ok) throw new Error(`Store list API returned ${res.status}`);
+  const data = await res.json();
+  return Array.isArray(data) ? data : [];
+}
 
 export async function getPartnerPosts(): Promise<PartnerPost[]> {
   const res = await fetch(`${API_URL}/api/food/blog/`, { next: { revalidate: REVALIDATE } });

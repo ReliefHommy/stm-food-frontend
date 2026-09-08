@@ -4,7 +4,7 @@ import { Bitter, Noto_Sans_Thai, Work_Sans } from "next/font/google";
 import LandingNav from "@/app/components/landing/LandingNav";
 import LandingFooter from "@/app/components/landing/LandingFooter";
 import PartnerCard from "./PartnerCard";
-import { getPartnerPosts } from "@/app/lib/partners";
+import { getPartnerStores } from "@/app/lib/partners";
 
 // Same per-page font loading pattern as app/explore/page.tsx (this repo scopes
 // these fonts per-page rather than in the shared root layout).
@@ -30,11 +30,11 @@ const workSans = Work_Sans({
 });
 
 export default async function PartnerListPage() {
-  let partners: Awaited<ReturnType<typeof getPartnerPosts>> = [];
+  let stores: Awaited<ReturnType<typeof getPartnerStores>> = [];
   let error = false;
 
   try {
-    partners = await getPartnerPosts();
+    stores = await getPartnerStores();
   } catch {
     error = true;
   }
@@ -60,15 +60,15 @@ export default async function PartnerListPage() {
           <p className="py-16 text-center text-sm text-charcoal-soft">
             ขออภัย ไม่สามารถโหลดข้อมูลพาร์ทเนอร์ได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง
           </p>
-        ) : partners.length === 0 ? (
+        ) : stores.length === 0 ? (
           <p className="py-16 text-center text-sm text-charcoal-soft">
             ยังไม่มีพาร์ทเนอร์ในขณะนี้
           </p>
         ) : (
           <section className="columns-1 gap-4 sm:columns-2 lg:columns-3">
-            {partners.map((p) => (
-              <div key={p.slug} className="mb-4">
-                <PartnerCard partner={p} />
+            {stores.map((s) => (
+              <div key={s.slug} className="mb-4">
+                <PartnerCard store={s} />
               </div>
             ))}
           </section>
