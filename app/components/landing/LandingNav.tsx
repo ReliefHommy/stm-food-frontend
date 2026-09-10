@@ -22,7 +22,7 @@ export default function LandingNav() {
     <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur border-b border-hairline">
       <div className="max-w-6xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 text-charcoal">
-          <Image src="/somtam_logo.png" alt="Som Tam Market" width={150} height={150} className="h-8 w-auto" />
+          <Image src="/somtam_logo.png" alt="Som Tam Market" width={424} height={125} className="h-10 w-auto" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">

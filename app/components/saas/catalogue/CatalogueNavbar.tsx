@@ -27,7 +27,7 @@ export default function CatalogueNavbar() {
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         {/* Left: Logo */}
         <Link href="/" className="flex items-center gap-2">
-           <Image src="/somtam_logo.png" alt="Somtam Marketplace" width={40} height={40} />
+           <Image src="/somtam_logo.png" alt="Somtam Marketplace" width={424} height={125} className="h-10 w-auto" />
            <span className="font-bold text-lg text-gray-800">Somtam Marketplace</span>
           </Link>
         {/* Center: Search bar */}
