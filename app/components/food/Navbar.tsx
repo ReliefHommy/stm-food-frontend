@@ -27,8 +27,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         {/* Left: Logo */}
         <Link href="/" className="flex items-center gap-2">
-           <Image src="/STM_logo.png" alt="Somtam Marketplace" width={172} height={35} />
-            
+           <Image src="/somtam_logo.png" alt="Somtam Marketplace" width={40} height={40} />
+           <span className="font-bold text-lg text-gray-800">Somtam Marketplace</span>
           </Link>
         {/* Center: Search bar */}
         <div className="relative hidden md:block w-1/3">

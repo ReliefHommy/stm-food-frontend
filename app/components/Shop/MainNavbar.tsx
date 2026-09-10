@@ -66,12 +66,13 @@ export default function MainNavbar() {
           {/* Left: Logo */}
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/STM_logo.png"
+              src="/somtam_logo.png"
               alt="Somtam Marketplace"
-              width={172}
-              height={35}
+              width={40}
+              height={40}
               priority
             />
+            <span className="font-bold text-lg text-gray-800">Somtam Marketplace</span>
           </Link>
 
           {/* Center: Search bar */}
