@@ -2,9 +2,10 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LogoMark, MenuIcon, CloseIcon } from './icons';
+import { MenuIcon, CloseIcon } from './icons';
 
 const navLinks = [
   { href: '/explore', label: 'สำรวจ' },
@@ -21,7 +22,7 @@ export default function LandingNav() {
     <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur border-b border-hairline">
       <div className="max-w-6xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 text-charcoal">
-          <LogoMark className="w-8 h-8 text-terracotta" />
+          <Image src="/somtam_logo.png" alt="Som Tam Market" width={32} height={32} className="w-8 h-8" />
           <span className="font-headline text-lg font-semibold tracking-tight">Som Tam Market</span>
         </Link>
 
