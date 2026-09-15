@@ -14,31 +14,31 @@ export default function FeaturedThisWeek() {
         </a>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-[500px]">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:h-[500px]">
         {/* BIG FEATURE CARD */}
-        <div className="md:col-span-8 group relative overflow-hidden rounded-3xl bg-neutral-100 cursor-pointer">
-          <img 
-            src="/banners/northern-light-vipassana.png" 
+        <div className="md:col-span-8 group relative overflow-hidden rounded-3xl bg-neutral-100 cursor-pointer h-64 sm:h-80 md:h-auto">
+          <img
+            src="/banners/northern-light-vipassana.png"
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             alt="Main Event"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0F3D2E]/90 via-transparent to-transparent" />
-          <div className="absolute bottom-0 p-8 text-white">
+          <div className="absolute bottom-0 p-6 md:p-8 text-white">
             <span className="bg-[#d876ac] text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">
               Wat Buddharama
             </span>
-            <h3 className="text-4xl font-bold mt-4 mb-2">Travel trips and Dhamma practice värmdö</h3>
+            <h3 className="text-2xl md:text-4xl font-bold mt-4 mb-2">Travel trips and Dhamma practice värmdö</h3>
             <p className="text-white/80 max-w-md line-clamp-2">วิปัสสนาแสงเหนือ</p>
           </div>
         </div>
 
         {/* SIDE STACK */}
-        <div className="md:col-span-4 grid grid-rows-2 gap-6">
+        <div className="md:col-span-4 grid grid-cols-2 gap-6 md:grid-cols-1 md:grid-rows-2">
        {[
   { src: "/banners/FB_IMG_1789476421923.jpg", alt: "Sub Event 1" },
   { src: "/banners/budharama-katlstad.jpg", alt: "Sub Event 2" },
 ].map((item) => (
-  <div key={item.src} className="group relative overflow-hidden rounded-3xl bg-neutral-100 cursor-pointer">
+  <div key={item.src} className="group relative overflow-hidden rounded-3xl bg-neutral-100 cursor-pointer h-40 sm:h-48 md:h-auto">
     <img
       src={item.src}
       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
