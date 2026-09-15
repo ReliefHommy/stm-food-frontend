@@ -5,13 +5,14 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { MenuIcon, CloseIcon } from './icons';
+import { MenuIcon, CloseIcon,  } from './icons';
+import { User } from 'lucide-react';
 
 const navLinks = [
-  { href: '/explore', label: 'สำรวจ' },
-  { href: '/shop', label: 'ร้านค้า' },
-  { href: '/shop', label: 'สมัครกล่อง' },
-  { href: '/login', label: 'เข้าสู่ระบบ' },
+  { href: '/', label: 'Home' },
+  { href: '/events', label: 'Events' },
+  { href: '/explore', label: 'Explore' },
+
 ];
 
 export default function LandingNav() {
@@ -19,10 +20,10 @@ export default function LandingNav() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur border-b border-hairline">
+    <header className="sticky top-0 z-50 bg-[#422646]-50 border-b border-hairline">
       <div className="max-w-6xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 text-charcoal">
-          <Image src="/somtam_logo.png" alt="Som Tam Market" width={424} height={125} className="h-10 w-auto" />
+          <Image src="/society_logo.png" alt="somtam_society" width={180} height={180} className="h-10 w-auto" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
@@ -34,7 +35,7 @@ export default function LandingNav() {
                 href={link.href}
                 aria-current={active ? 'page' : undefined}
                 className={`font-body text-sm transition-colors ${
-                  active ? 'text-terracotta font-medium' : 'text-charcoal-soft hover:text-charcoal'
+                  active ? 'text-[#422646] font-medium' : 'text-charcoal-soft hover:text-charcoal'
                 }`}
               >
                 {link.label}
@@ -42,10 +43,11 @@ export default function LandingNav() {
             );
           })}
           <Link
-            href="/shop"
-            className="font-body text-sm font-medium bg-terracotta hover:bg-terracotta-hover text-white px-5 py-2.5 rounded-btn transition-colors"
+            href="/login"
+            className="font-body text-sm font-medium bg-[#422646] hover:bg-[#422646]-hover text-white px-5 py-2.5 rounded-full transition-colors"
           >
-            ช้อปเลย
+          <User />
+        
           </Link>
         </nav>
 
@@ -69,18 +71,18 @@ export default function LandingNav() {
                 href={link.href}
                 onClick={() => setOpen(false)}
                 aria-current={active ? 'page' : undefined}
-                className={`font-body text-sm ${active ? 'text-terracotta font-medium' : 'text-charcoal-soft'}`}
+                className={`font-body text-sm ${active ? 'text-[#422646] font-medium' : 'text-charcoal-soft'}`}
               >
                 {link.label}
               </Link>
             );
           })}
           <Link
-            href="/shop"
+            href="/events"
             onClick={() => setOpen(false)}
-            className="font-body text-sm font-medium bg-terracotta text-white px-5 py-2.5 rounded-btn text-center"
+            className="font-body text-sm font-medium bg-[#422646] text-white px-5 py-2.5 rounded-full text-center"
           >
-            ช้อปเลย
+            Explore
           </Link>
         </div>
       )}
