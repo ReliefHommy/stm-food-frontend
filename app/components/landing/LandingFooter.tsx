@@ -12,7 +12,8 @@ export default function LandingFooter() {
             <span className="font-headline text-base font-semibold">Som Tam Market</span>
           </div>
           <p className="font-body text-sm text-charcoal-soft" style={{ lineHeight: 1.7 }}>
-            ของไทยแท้จากร้านค้าจริง จะซื้อครั้งเดียวหรือสมัครสมาชิกก็เลือกได้
+            Somtam is where the Thai food world in Scandinavia comes together.
+
           </p>
         </div>
 
@@ -20,13 +21,13 @@ export default function LandingFooter() {
           <h4 className="font-body text-sm font-semibold text-charcoal mb-4">ร้านค้า</h4>
           <ul className="space-y-2.5">
             <li>
-              <Link href="/shop" className="font-body text-sm text-charcoal-soft hover:text-charcoal">
-                ร้านค้า
+              <Link href="/" className="font-body text-sm text-charcoal-soft hover:text-charcoal">
+                Event & Promotion
               </Link>
             </li>
             <li>
-              <Link href="/shop" className="font-body text-sm text-charcoal-soft hover:text-charcoal">
-                สมัครกล่อง
+              <Link href="/" className="font-body text-sm text-charcoal-soft hover:text-charcoal">
+                สมัครร้านค้า
               </Link>
             </li>
           </ul>
@@ -58,7 +59,7 @@ export default function LandingFooter() {
 
         <div>
           <h4 className="font-body text-sm font-semibold text-charcoal mb-4">ติดต่อเรา</h4>
-          <p className="font-body text-sm text-charcoal-soft">[อีเมลติดต่อ]</p>
+          <p className="font-body text-sm text-charcoal-soft">[admin@somtammarket.com]</p>
         </div>
       </div>
 

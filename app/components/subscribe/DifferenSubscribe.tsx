@@ -1,18 +1,18 @@
+// app/components/landing/Differentiator.tsx
 
-import { CheckIcon, XIcon } from './icons';
+import { CheckIcon, XIcon } from "lucide-react";
+
 
 const genericBullets = [
-  'เป็นตัวกลางในการทำธุรกรรมระหว่างคุณกับอีกฝ่ายหนึ่ง',
-  'เป็นตัวกลางการสั่งซื้อ การชำระเงิน การตกลงรายละเอียดต่างๆ',
-  'การรับเงินหรือค่าคอมมิชชันใดๆจากคุณหรืออีกฝ่ายหนึ่ง',
-  'เข้ามาเกี่ยวข้องในธุระกรรมระหว่างคุณกับอีกฝ่ายหนึ่ง',
- 
+  'กล่องประกอบจากโกดัง แคตตาล็อกเดียวกับที่อื่นทั่วไป',
+  'ไม่รู้เลยว่าใครเป็นคนทำหรือปลูกสิ่งที่คุณกำลังกินอยู่',
+  'ค่าส่งบวกเพิ่มตอนเช็คเอาต์',
 ];
 
 const stmBullets = [
-  'STM เป็นเพียงตัวกลางในการเชื่อมโยงผู้คนเข้าด้วยกัน',
-  'STM ไม่ได้เข้ามาเป็นตัวกลางในการทำธุรกรรมของคุณ',
-  'STM ไม่รับเงินหรือค่าคอมมิชชันใดๆ',
+  'กล่องคัดสรรโดยร้านค้าที่มีชื่ออยู่บนกล่องจริงๆ',
+  'สินค้าทุกชิ้นย้อนกลับไปหาร้านค้าไทยจริงที่คุณติดตามได้',
+  'ค่าส่งรวมอยู่ในราคาแล้ว',
 ];
 
 export default function Differentiator() {
@@ -20,13 +20,13 @@ export default function Differentiator() {
     <section className="bg-[#422646] py-16 md:py-20">
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <h2 className="font-headline text-3xl md:text-4xl font-semibold text-cream text-center max-w-2xl mx-auto">
-          Somtam ส้มตำเชื่อมโยงผู้คนเข้าด้วยกันโดยตรง
+          Not another generic grocery subscription.
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
           <div className="border border-white/15 rounded-card p-7">
             <h3 className="font-body text-sm font-semibold tracking-wide text-white/60 mb-5">
-              What STM is NOT/สิ่งที่ STM ไม่ใช่
+              แอปร้านของชำทั่วไป
             </h3>
             <ul className="space-y-4">
               {genericBullets.map((b) => (
