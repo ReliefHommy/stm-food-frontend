@@ -38,7 +38,6 @@ export default function LandingPage() {
       <Hero />
       <ValueProps />
       <HowItWorks />
-      <Differentiator />
       <LandingFooter />
     </div>
   );

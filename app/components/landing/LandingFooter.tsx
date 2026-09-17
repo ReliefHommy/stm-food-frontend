@@ -18,7 +18,7 @@ export default function LandingFooter() {
         </div>
 
         <div>
-          <h4 className="font-body text-sm font-semibold text-charcoal mb-4">ร้านค้า</h4>
+          <h4 className="font-body text-sm font-semibold text-charcoal mb-4">อีเวนท์</h4>
           <ul className="space-y-2.5">
             <li>
               <Link href="/" className="font-body text-sm text-charcoal-soft hover:text-charcoal">
@@ -26,8 +26,8 @@ export default function LandingFooter() {
               </Link>
             </li>
             <li>
-              <Link href="/" className="font-body text-sm text-charcoal-soft hover:text-charcoal">
-                สมัครร้านค้า
+              <Link href="/login" className="font-body text-sm text-charcoal-soft hover:text-charcoal">
+                สมัครเข้าใช้งานอีเวนท์
               </Link>
             </li>
           </ul>
