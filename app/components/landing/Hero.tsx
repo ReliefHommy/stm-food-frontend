@@ -56,10 +56,10 @@ export default function Hero() {
             {/* Headline */}
             <h1 className="mt-4 text-5xl font-bold tracking-tight text-[#d876ac] dark:text-white sm:text-5xl lg:text-6xl">
             
-              <span className="text-[#422646] dark:text-[#422646]">Where the Thai Food World</span>
+              <span className="text-[#422646] dark:text-[#422646] dark:text-white">Where the Thai Food World</span>
               <br className="hidden sm:block" />
               Comes Together{" "}
-              <span className="text-[#d876ac] dark:text-[#d876ac]">in Nordic</span>
+              <span className="text-[#d876ac] dark:text-[#d876ac]">in Europe</span>
             </h1>
 
             {/* Subheadline */}

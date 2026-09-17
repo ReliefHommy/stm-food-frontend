@@ -39,7 +39,7 @@ export default function ValueProps() {
   return (
     <section className="max-w-6xl mx-auto px-4 md:px-8 py-16 md:py-20">
             <div className="text-center max-w-xl mx-auto mb-12">
-       <h2 className="text-3xl font-bold tracking-tight text-[#d876ac] dark:text-white sm:text-4xl">
+       <h2 className="text-3xl font-bold tracking-tight text-[#d876ac] dark:text-[#d876ac] sm:text-4xl">
           <span className="text-[#422646]">What&apos;s on</span> SOMTAM
         </h2>
       

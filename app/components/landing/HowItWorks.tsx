@@ -54,10 +54,10 @@ export default function HowItWorks() {
 
       <div className="text-center mt-12">
         <Link
-          href="/shop"
+          href="/events"
           className="inline-block font-body text-sm font-medium bg-[#422646] hover:bg-[#422646]-hover text-white px-6 py-3 rounded-full transition-colors"
         >
-          เริ่มกล่องของคุณ
+          สำรวจงานงานวัด & ตลาดนัด
         </Link>
       
       </div>
