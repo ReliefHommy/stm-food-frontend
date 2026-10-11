@@ -5,6 +5,8 @@ import LandingFooter from '../components/landing/LandingFooter';
 import HeroEvents from '../components/event/HeroEvent';
 import EventContentFeed from '../components/event/EventContentFeed';
 import FeaturedThisWeek from '../components/event/FeaturedThisWeek';
+import ValueProps from '../components/landing/ValueProps';
+import HowItWorks from '../components/landing/HowItWorks';
 
 
 
@@ -37,6 +39,8 @@ export default function LandingPage() {
     >
       <LandingNav />
       <HeroEvents/>
+          <ValueProps />
+            <HowItWorks />
       <FeaturedThisWeek/>
           <div className="space-y-8">
             <EventContentFeed

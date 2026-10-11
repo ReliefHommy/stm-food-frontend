@@ -11,7 +11,7 @@ import { User } from 'lucide-react';
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/events', label: 'Events' },
-  { href: '/explore', label: 'Explore' },
+  { href: '/about', label: 'About' },
 
 ];
 

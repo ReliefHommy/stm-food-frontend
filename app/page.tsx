@@ -3,10 +3,8 @@ import { Bitter, Noto_Sans_Thai, Work_Sans } from 'next/font/google';
 
 import LandingNav from './components/landing/LandingNav';
 import Hero from './components/landing/Hero';
-import ValueProps from './components/landing/ValueProps';
-import HowItWorks from './components/landing/HowItWorks';
-import Differentiator from './components/landing/Differentiator';
 import LandingFooter from './components/landing/LandingFooter';
+import ExploreGrid from './components/explore/ExploreGrid';
 
 const bitter = Bitter({
   subsets: ['latin'],
@@ -36,8 +34,7 @@ export default function LandingPage() {
     >
       <LandingNav />
       <Hero />
-      <ValueProps />
-      <HowItWorks />
+   <ExploreGrid />
       <LandingFooter />
     </div>
   );

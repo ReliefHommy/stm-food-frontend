@@ -64,7 +64,7 @@ export default function Hero() {
 
             {/* Subheadline */}
             <p className="mt-6 max-w-xl text-lg leading-8 text-gray-600 dark:text-gray-300">
-              เราคือแหล่ง Update ข้อมูลงานวัดและปฏิทินจันทรคติ เราช่วยร้านขายสินค้าไทยที่ต้องการระบายสินค้า เราช่วยรวบรวมยอดสั่งซื้อสินค้าเพื่อให้ถึงเกณฑ์ขั้นต่ำของผู้นำเข้า เราช่วยให้ผู้ประกอบร้านอาหารที่ต้องการขายหรือเช่ากิจการเป็นไปโดยง่าย หรือแม้แต่คนปลูกผักหน้าร้อนที่มีผลผลิตสวนเกินกว่าที่ครัวเดียวจะบริโภคให้แก่คนต้องการในพื้นที่ไกล้เคียง ทั้งหมดนี้รวมอยู่ในที่เดียว คือ SOMTAM.
+               Bridging the gap between Thai food enthusiasts and the vibrant culinary scene in Europe through Art, Tech and Storytelling. Join us to explore events, connect with like-minded individuals, and celebrate the rich flavors of Thai cuisine.
             </p>
 
             {/* CTA buttons */}
